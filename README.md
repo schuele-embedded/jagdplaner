@@ -50,9 +50,10 @@ VITE_SUPABASE_ANON_KEY=eyJhbGci...
 
 ### 4. Datenbankschema initialisieren
 
-Im Supabase Dashboard: **SQL Editor → New query**, dann den gesamten Inhalt von [`supabase/migrations/001_initial_schema.sql`](supabase/migrations/001_initial_schema.sql) einfügen und mit **Run** ausführen.
+Im Supabase Dashboard: **SQL Editor → New query**, Inhalt der Migrationsskripte nacheinander einfügen und jeweils mit **Run** ausführen:
 
-Das Skript legt alle Tabellen, Indizes, RLS-Policies und Trigger an.
+1. [`supabase/migrations/001_initial_schema.sql`](supabase/migrations/001_initial_schema.sql) – Tabellen, Indizes, RLS-Policies, Trigger
+2. [`supabase/migrations/002_helper_functions.sql`](supabase/migrations/002_helper_functions.sql) – Hilfsfunktionen (E-Mail-Lookup für Mitglieder-Einladung)
 
 ---
 

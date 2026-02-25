@@ -1,6 +1,7 @@
-import { LogOut, User } from 'lucide-react'
+import { LogOut, User, Users } from 'lucide-react'
 import { useUserStore } from '@/store/useUserStore'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { MitgliederVerwaltung } from '@/components/revier/MitgliederVerwaltung'
 
 export function MenuPage() {
   const { user, signOut } = useUserStore()
@@ -23,6 +24,18 @@ export function MenuPage() {
             <p className="font-medium">{user?.name}</p>
             <p className="text-sm text-muted-foreground">{user?.email}</p>
           </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="flex items-center gap-2 text-sm font-medium text-muted-foreground uppercase tracking-wide">
+            <Users className="h-4 w-4" />
+            Reviermitglieder
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <MitgliederVerwaltung />
         </CardContent>
       </Card>
 

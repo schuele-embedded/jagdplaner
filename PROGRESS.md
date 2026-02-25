@@ -26,7 +26,7 @@
 | TASK-006 | App-Shell & Navigation | ✅ done | TASK-006 |
 | TASK-007 | PWA-Konfiguration | ✅ done | TASK-007 |
 | TASK-008 | Revier-CRUD & Store | ✅ done | TASK-008 |
-| TASK-009 | Mitglieder-Einladung & Rollen | ⏳ pending | – |
+| TASK-009 | Mitglieder-Einladung & Rollen | ✅ done | TASK-009 |
 | TASK-010 | Wetter-API & Mondphasen | ⏳ pending | – |
 | TASK-011 | IndexedDB Offline-Speicher | ⏳ pending | – |
 | TASK-012 | Leaflet-Revierkarte | ⏳ pending | – |
@@ -42,7 +42,7 @@
 
 ### Letzter Stand
 - Beginn: 25. Februar 2026
-- Nächster Task: **TASK-009** (Mitglieder-Einladung & Rollen)
+- Nächster Task: **TASK-010** (Wetter-API & Mondphasen)
 
 ### Supabase
 - Projekt noch nicht angelegt (manueller Schritt)
@@ -70,3 +70,4 @@
 | 2026-02-25 | TASK-006 | App-Shell: Router, BottomNav, OfflineIndicator, alle Placeholder-Pages |
 | 2026-02-25 | TASK-007 | PWA: Supabase NetworkOnly, SVG-Icons, manifest.json |
 | 2026-02-25 | TASK-008 | Revier-CRUD: Store, RevierForm, RevierWechsler, OnboardingModal |
+| 2026-02-25 | TASK-009 | Mitglieder-Einladung, Rollen, usePermissions, Select-Component |
