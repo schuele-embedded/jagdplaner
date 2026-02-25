@@ -19,11 +19,11 @@
 | ID | Titel | Status | Commit |
 |---|---|---|---|
 | TASK-001 | Projekt-Scaffold | ✅ done | TASK-001 |
-| TASK-002 | TypeScript-Typen & Zod-Schemas | 🔲 todo | – |
-| TASK-003 | Supabase-Datenbankschema | 🔲 todo | – |
-| TASK-004 | Supabase Client & Auth-Store | ⏳ pending | – |
-| TASK-005 | Auth-UI | ⏳ pending | – |
-| TASK-006 | App-Shell & Navigation | ⏳ pending | – |
+| TASK-002 | TypeScript-Typen & Zod-Schemas | ✅ done | TASK-002 |
+| TASK-003 | Supabase-Datenbankschema | ✅ done | TASK-002 |
+| TASK-004 | Supabase Client & Auth-Store | 🔲 todo | – |
+| TASK-005 | Auth-UI | 🔲 todo | – |
+| TASK-006 | App-Shell & Navigation | 🔲 todo | – |
 | TASK-007 | PWA-Konfiguration | ⏳ pending | – |
 | TASK-008 | Revier-CRUD & Store | ⏳ pending | – |
 | TASK-009 | Mitglieder-Einladung & Rollen | ⏳ pending | – |
@@ -42,7 +42,7 @@
 
 ### Letzter Stand
 - Beginn: 25. Februar 2026
-- Nächster Task: **TASK-002** und **TASK-003** (parallel)
+- Nächster Task: **TASK-004** (benötigt `.env` mit echten Supabase-Credentials)
 
 ### Supabase
 - Projekt noch nicht angelegt (manueller Schritt)
@@ -59,3 +59,5 @@
 |---|---|---|
 | 2026-02-25 | – | PROGRESS.md angelegt, Implementierung gestartet |
 | 2026-02-25 | TASK-001 | Projekt-Scaffold abgeschlossen (Vite+React+TS+PWA, alle Configs) |
+| 2026-02-25 | TASK-002 | TypeScript-Interfaces + Zod-Schemas erstellt |
+| 2026-02-25 | TASK-003 | Supabase-Migrationsskript mit RLS-Policies erstellt |
