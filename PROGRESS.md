@@ -24,7 +24,7 @@
 | TASK-004 | Supabase Client & Auth-Store | ✅ done | TASK-004 |
 | TASK-005 | Auth-UI | ✅ done | TASK-005 |
 | TASK-006 | App-Shell & Navigation | ✅ done | TASK-006 |
-| TASK-007 | PWA-Konfiguration | ⏳ pending | – |
+| TASK-007 | PWA-Konfiguration | ✅ done | TASK-007 |
 | TASK-008 | Revier-CRUD & Store | ⏳ pending | – |
 | TASK-009 | Mitglieder-Einladung & Rollen | ⏳ pending | – |
 | TASK-010 | Wetter-API & Mondphasen | ⏳ pending | – |
@@ -42,11 +42,15 @@
 
 ### Letzter Stand
 - Beginn: 25. Februar 2026
-- Nächster Task: **TASK-007** (PWA-Konfiguration) – dann TASK-008 (Revier-CRUD)
+- Nächster Task: **TASK-008** (Revier-CRUD & Store)
 
 ### Supabase
 - Projekt noch nicht angelegt (manueller Schritt)
 - Sobald angelegt: `.env` mit `VITE_SUPABASE_URL` und `VITE_SUPABASE_ANON_KEY` befüllen
+
+### PWA-Icons
+- Platzhalter SVG unter `public/icons/icon.svg` und `public/mask-icon.svg`
+- Für Produktion: PNG-Icons (192x192 und 512x512) aus SVG generieren
 
 ### Offene Entscheidungen
 - Keine
@@ -64,3 +68,4 @@
 | 2026-02-25 | TASK-004 | Supabase Client + Zustand Auth-Store implementiert |
 | 2026-02-25 | TASK-005 | Auth-UI: Login, Registrierung, Passwort-Reset, AuthGuard |
 | 2026-02-25 | TASK-006 | App-Shell: Router, BottomNav, OfflineIndicator, alle Placeholder-Pages |
+| 2026-02-25 | TASK-007 | PWA: Supabase NetworkOnly, SVG-Icons, manifest.json |

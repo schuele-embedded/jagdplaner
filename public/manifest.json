@@ -1,0 +1,34 @@
+{
+  "name": "JagdPlaner",
+  "short_name": "JagdPlaner",
+  "description": "Kartenbasierte Jagdplanung mit KI-gestützter Erfolgsvorhersage",
+  "theme_color": "#2d5016",
+  "background_color": "#1a1a1a",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "de",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/mask-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["utilities", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Ansitz starten",
+      "short_name": "Ansitz",
+      "url": "/ansitz",
+      "icons": [{ "src": "/icons/icon.svg", "sizes": "any" }]
+    }
+  ]
+}

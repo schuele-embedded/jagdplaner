@@ -19,9 +19,9 @@ export default defineConfig({
         orientation: 'portrait',
         start_url: '/',
         icons: [
-          { src: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
-          { src: '/icons/icon-512x512.png', sizes: '512x512', type: 'image/png' },
-          { src: '/icons/icon-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
+          { src: '/icons/icon.svg', sizes: 'any', type: 'image/svg+xml' },
+          // TODO: Add PNG icons for full PWA installation support:
+          // icon-192x192.png and icon-512x512.png generated from public/icons/icon.svg
         ],
       },
       workbox: {
@@ -46,7 +46,11 @@ export default defineConfig({
               cacheableResponse: { statuses: [0, 200] },
             },
           },
-          // Supabase API calls are NOT cached (network only, sensitive data)
+          {
+            // Supabase API calls – never cache (network only, sensitive data)
+            urlPattern: /^https:\/\/.*\.supabase\.co\/.*/i,
+            handler: 'NetworkOnly',
+          },
         ],
       },
       devOptions: { enabled: false },
