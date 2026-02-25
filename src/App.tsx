@@ -1,9 +1,12 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useUserStore } from '@/store/useUserStore'
+import { useRevierStore } from '@/store/useRevierStore'
 import { AuthGuard } from '@/components/ui/AuthGuard'
 import { BottomNav } from '@/components/ui/BottomNav'
 import { OfflineIndicator } from '@/components/ui/OfflineIndicator'
+import { RevierWechsler } from '@/components/revier/RevierWechsler'
+import { OnboardingModal } from '@/components/revier/OnboardingModal'
 import { LoginPage } from '@/pages/LoginPage'
 import { RegistrierungPage } from '@/pages/RegistrierungPage'
 import { PasswortResetPage } from '@/pages/PasswortResetPage'
@@ -14,9 +17,17 @@ import { ListePage } from '@/pages/ListePage'
 import { MenuPage } from '@/pages/MenuPage'
 
 function AppShell() {
+  const { reviere, loading } = useRevierStore()
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <OfflineIndicator />
+
+      {/* Header */}
+      <header className="sticky top-0 z-40 flex h-12 items-center border-b bg-background/95 px-3 backdrop-blur-sm">
+        <RevierWechsler />
+      </header>
+
       <main className="flex flex-1 flex-col pb-16">
         <Routes>
           <Route path="/" element={<KartePage />} />
@@ -27,17 +38,27 @@ function AppShell() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+
       <BottomNav />
+
+      {/* Onboarding: erstes Revier anlegen */}
+      {!loading && <OnboardingModal open={reviere.length === 0} />}
     </div>
   )
 }
 
 export default function App() {
   const initialize = useUserStore((s) => s.initialize)
+  const user = useUserStore((s) => s.user)
+  const loadReviere = useRevierStore((s) => s.loadReviere)
 
   useEffect(() => {
     initialize()
   }, [initialize])
+
+  useEffect(() => {
+    if (user) loadReviere()
+  }, [user, loadReviere])
 
   return (
     <BrowserRouter>
