@@ -23,7 +23,7 @@
 | TASK-003 | Supabase-Datenbankschema | ✅ done | TASK-002 |
 | TASK-004 | Supabase Client & Auth-Store | ✅ done | TASK-004 |
 | TASK-005 | Auth-UI | ✅ done | TASK-005 |
-| TASK-006 | App-Shell & Navigation | 🔲 todo | – |
+| TASK-006 | App-Shell & Navigation | ✅ done | TASK-006 |
 | TASK-007 | PWA-Konfiguration | ⏳ pending | – |
 | TASK-008 | Revier-CRUD & Store | ⏳ pending | – |
 | TASK-009 | Mitglieder-Einladung & Rollen | ⏳ pending | – |
@@ -42,7 +42,7 @@
 
 ### Letzter Stand
 - Beginn: 25. Februar 2026
-- Nächster Task: **TASK-006** (App-Shell & Navigation)
+- Nächster Task: **TASK-007** (PWA-Konfiguration) – dann TASK-008 (Revier-CRUD)
 
 ### Supabase
 - Projekt noch nicht angelegt (manueller Schritt)
@@ -63,3 +63,4 @@
 | 2026-02-25 | TASK-003 | Supabase-Migrationsskript mit RLS-Policies erstellt |
 | 2026-02-25 | TASK-004 | Supabase Client + Zustand Auth-Store implementiert |
 | 2026-02-25 | TASK-005 | Auth-UI: Login, Registrierung, Passwort-Reset, AuthGuard |
+| 2026-02-25 | TASK-006 | App-Shell: Router, BottomNav, OfflineIndicator, alle Placeholder-Pages |
