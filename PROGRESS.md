@@ -18,7 +18,7 @@
 
 | ID | Titel | Status | Commit |
 |---|---|---|---|
-| TASK-001 | Projekt-Scaffold | 🔲 todo | – |
+| TASK-001 | Projekt-Scaffold | ✅ done | TASK-001 |
 | TASK-002 | TypeScript-Typen & Zod-Schemas | 🔲 todo | – |
 | TASK-003 | Supabase-Datenbankschema | 🔲 todo | – |
 | TASK-004 | Supabase Client & Auth-Store | ⏳ pending | – |
@@ -42,7 +42,7 @@
 
 ### Letzter Stand
 - Beginn: 25. Februar 2026
-- Nächster Task: **TASK-001**
+- Nächster Task: **TASK-002** und **TASK-003** (parallel)
 
 ### Supabase
 - Projekt noch nicht angelegt (manueller Schritt)
@@ -58,3 +58,4 @@
 | Datum | Task | Beschreibung |
 |---|---|---|
 | 2026-02-25 | – | PROGRESS.md angelegt, Implementierung gestartet |
+| 2026-02-25 | TASK-001 | Projekt-Scaffold abgeschlossen (Vite+React+TS+PWA, alle Configs) |

@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light mode – forest green primary */
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 100 53% 20%;        /* #2d5016 Waldgrün */
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 20 59% 30%;       /* #8b4513 Erdbraun */
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --accent: 18 100% 61%;         /* #ff6b35 Signal-Orange */
+    --accent-foreground: 24 9.8% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 100 53% 20%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Dark mode – for night hunting */
+    --background: 0 0% 10%;        /* #1a1a1a */
+    --foreground: 60 9.1% 97.8%;
+    --card: 0 0% 18%;              /* #2d2d2d */
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 100 43% 33%;        /* #4a7c2c gedämpftes Grün */
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 20 45% 43%;       /* #a0663c Warmbraun */
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --accent: 16 67% 48%;          /* #cc5529 gedämpftes Orange */
+    --accent-foreground: 60 9.1% 97.8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 0 0% 22%;
+    --input: 0 0% 22%;
+    --ring: 100 43% 33%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Prevent double-tap zoom on mobile */
+    touch-action: manipulation;
+  }
+}
+
+/* Leaflet z-index fix for modals/sheets */
+.leaflet-container {
+  z-index: 0;
+}
