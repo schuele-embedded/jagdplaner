@@ -3,19 +3,61 @@ import { Plus, X } from 'lucide-react'
 import { RevierMap } from '@/components/karte/RevierMap'
 import { RevierBoundary } from '@/components/karte/RevierBoundary'
 import { UserPosition } from '@/components/karte/UserPosition'
+import { AnsitzMarker } from '@/components/karte/AnsitzMarker'
+import { EinrichtungForm } from '@/components/einrichtungen/EinrichtungForm'
 import { useRevier } from '@/hooks/useRevier'
+import { useEinrichtungen } from '@/hooks/useEinrichtungen'
+import type { Ansitzeinrichtung } from '@/types'
+import type { AnsitzeinrichtungFormValues } from '@/lib/validierung'
 
 export function KartePage() {
-  const { activeRevier, hasRevier } = useRevier()
+  const { activeRevier, revierId, hasRevier } = useRevier()
+  const { einrichtungen, create, update, remove } = useEinrichtungen()
+
   const [clickMode, setClickMode] = useState(false)
-  const [pendingPosition, setPendingPosition] = useState<{ lat: number; lng: number } | null>(null)
+  const [formPosition, setFormPosition] = useState<{ lat: number; lng: number } | null>(null)
+  const [editTarget, setEditTarget] = useState<Ansitzeinrichtung | null>(null)
+  const [showForm, setShowForm] = useState(false)
 
   function handleMapClick(latlng: { lat: number; lng: number }) {
     if (!clickMode) return
-    setPendingPosition(latlng)
+    setFormPosition(latlng)
+    setEditTarget(null)
+    setShowForm(true)
     setClickMode(false)
-    // TASK-013 will open the EinrichtungForm here
-    console.log('Neue Einrichtung an:', latlng)
+  }
+
+  function handleEdit(einrichtung: Ansitzeinrichtung) {
+    setEditTarget(einrichtung)
+    setFormPosition(einrichtung.position)
+    setShowForm(true)
+  }
+
+  function handleCloseForm() {
+    setShowForm(false)
+    setEditTarget(null)
+    setFormPosition(null)
+  }
+
+  async function handleSave(data: AnsitzeinrichtungFormValues & { revier_id: string }) {
+    if (editTarget) {
+      await update(editTarget.id, data)
+    } else {
+      await create({
+        ...data,
+        revier_id: revierId!,
+        fotos: [],
+        created_by: '',
+        naechste_wartung: data.naechste_wartung ?? null,
+        beschreibung: data.beschreibung ?? null,
+        notizen: data.notizen ?? null,
+        hoehe_meter: data.hoehe_meter ?? null,
+        ausrichtung_grad: data.ausrichtung_grad ?? null,
+        sichtweite_meter: data.sichtweite_meter ?? null,
+        letzte_wartung: data.letzte_wartung ?? null,
+      })
+    }
+    handleCloseForm()
   }
 
   if (!hasRevier) {
@@ -41,7 +83,14 @@ export function KartePage() {
         <RevierMap onMapClick={handleMapClick} clickMode={clickMode}>
           <RevierBoundary />
           <UserPosition />
-          {/* TASK-013: <AnsitzMarker> components go here */}
+          {einrichtungen.map((e) => (
+            <AnsitzMarker
+              key={e.id}
+              einrichtung={e}
+              onEdit={handleEdit}
+              onDelete={remove}
+            />
+          ))}
         </RevierMap>
 
         {/* Click-mode banner */}
@@ -52,28 +101,36 @@ export function KartePage() {
         )}
 
         {/* FAB – add Einrichtung */}
-        <div className="absolute bottom-20 right-4 z-[1000]">
-          <button
-            onClick={() => {
-              setPendingPosition(null)
-              setClickMode((prev) => !prev)
-            }}
-            title={clickMode ? 'Abbrechen' : 'Einrichtung hinzufügen'}
-            className={`flex h-14 w-14 items-center justify-center rounded-full shadow-lg text-white transition-colors ${
-              clickMode ? 'bg-red-600 hover:bg-red-700' : 'bg-green-700 hover:bg-green-800'
-            }`}
-          >
-            {clickMode ? <X size={24} /> : <Plus size={24} />}
-          </button>
-        </div>
-
-        {/* Pending position debug (removed in TASK-013 when form exists) */}
-        {pendingPosition && (
-          <div className="absolute bottom-40 left-4 z-[1000] rounded bg-white px-3 py-2 text-xs shadow">
-            Ausgewählt: {pendingPosition.lat.toFixed(5)}, {pendingPosition.lng.toFixed(5)}
+        {!showForm && (
+          <div className="absolute bottom-20 right-4 z-[1000]">
+            <button
+              onClick={() => {
+                setClickMode((prev) => !prev)
+              }}
+              title={clickMode ? 'Abbrechen' : 'Einrichtung hinzufügen'}
+              className={`flex h-14 w-14 items-center justify-center rounded-full shadow-lg text-white transition-colors ${
+                clickMode ? 'bg-red-600 hover:bg-red-700' : 'bg-green-700 hover:bg-green-800'
+              }`}
+            >
+              {clickMode ? <X size={24} /> : <Plus size={24} />}
+            </button>
           </div>
         )}
       </div>
+
+      {/* Bottom-sheet form */}
+      {showForm && revierId && (
+        <div className="absolute inset-x-0 bottom-0 z-[2000] max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white px-4 pb-8 pt-4 shadow-2xl">
+          <div className="mx-auto mb-3 h-1 w-12 rounded-full bg-gray-300" />
+          <EinrichtungForm
+            initialPosition={formPosition ?? undefined}
+            editData={editTarget ?? undefined}
+            revierID={revierId}
+            onSave={handleSave}
+            onCancel={handleCloseForm}
+          />
+        </div>
+      )}
     </div>
   )
 }
