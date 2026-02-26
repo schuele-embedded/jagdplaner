@@ -10,9 +10,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'JagdPlaner',
-        short_name: 'JagdPlaner',
-        description: 'Kartenbasierte Jagdplanung mit KI-gestützter Erfolgsvorhersage',
+        name: 'AnsitzPlaner',
+        short_name: 'AnsitzPlaner',
+        description: 'Kartenbasierte Jagdplanung mit interaktiver Revierkarte und KI-Erfolgsvorhersage für Jäger.',
         theme_color: '#2d5016',
         background_color: '#1a1a1a',
         display: 'standalone',
