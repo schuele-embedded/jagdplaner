@@ -28,7 +28,7 @@
 | TASK-008 | Revier-CRUD & Store | ✅ done | TASK-008 |
 | TASK-009 | Mitglieder-Einladung & Rollen | ✅ done | TASK-009 |
 | TASK-010 | Wetter-API & Mondphasen | ✅ done | TASK-010 |
-| TASK-011 | IndexedDB Offline-Speicher | ⏳ pending | – |
+| TASK-011 | IndexedDB Offline-Speicher | ✅ done | TASK-011 |
 | TASK-012 | Leaflet-Revierkarte | ⏳ pending | – |
 | TASK-013 | Ansitzeinrichtungen CRUD | ⏳ pending | – |
 | TASK-014 | Offline-Karten-Caching | ⏳ pending | – |
@@ -42,7 +42,7 @@
 
 ### Letzter Stand
 - Beginn: 25. Februar 2026
-- Nächster Task: **TASK-011** (IndexedDB Offline-Speicher)
+- Nächster Task: **TASK-012** (Leaflet-Revierkarte)
 
 ### Supabase
 - Projekt noch nicht angelegt (manueller Schritt)
@@ -72,3 +72,4 @@
 | 2026-02-25 | TASK-008 | Revier-CRUD: Store, RevierForm, RevierWechsler, OnboardingModal |
 | 2026-02-25 | TASK-009 | Mitglieder-Einladung, Rollen, usePermissions, Select-Component |
 | 2026-02-25 | TASK-010 | Wetter-API (Open-Meteo), Mondphasen (SunCalc), useGeolocation, useWeatherData |
+| 2026-02-25 | TASK-011 | IndexedDB (idb): ansitze, beobachtungen, einrichtungen, sync_queue + Auto-Sync |

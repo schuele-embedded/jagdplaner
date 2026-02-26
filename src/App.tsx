@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useUserStore } from '@/store/useUserStore'
 import { useRevierStore } from '@/store/useRevierStore'
+import { registerSyncOnReconnect } from '@/lib/indexeddb'
 import { AuthGuard } from '@/components/ui/AuthGuard'
 import { BottomNav } from '@/components/ui/BottomNav'
 import { OfflineIndicator } from '@/components/ui/OfflineIndicator'
@@ -54,6 +55,8 @@ export default function App() {
 
   useEffect(() => {
     initialize()
+    const unregister = registerSyncOnReconnect()
+    return unregister
   }, [initialize])
 
   useEffect(() => {
