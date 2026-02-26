@@ -240,5 +240,5 @@ Alle 17 MVP-Tasks sind erledigt. TASK-018–020 (Rebranding, Deployment, Rechtli
 5. **`App.tsx`** – Routen für `/impressum` und `/datenschutz` ergänzen
 
 # BUGS
-- Auf der Karte ist nichts zu sehen. ich hätte gerne satelliten bild und topographie umschaltbar
-- wird ansitz einreichtung hinzufügen ausgewählt und auf die karte geklickt, erscheint nichts.
+- ✅ Auf der Karte ist nichts zu sehen. ich hätte gerne satelliten bild und topographie umschaltbar → Layer-Switcher mit Karte/Satellit/Topographie implementiert (Esri WorldImagery, OpenTopoMap)
+- ✅ wird ansitz einreichtung hinzufügen ausgewählt und auf die karte geklickt, erscheint nichts → Stale-Closure-Bug in MapClickHandler gefixt (useRef), Form-Sheet auf `fixed` umgestellt

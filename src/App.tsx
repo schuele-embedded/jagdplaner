@@ -28,8 +28,11 @@ function AppShell() {
       <OfflineIndicator />
 
       {/* Header */}
-      <header className="sticky top-0 z-40 flex h-12 items-center border-b bg-background/95 px-3 backdrop-blur-sm">
+      <header className="sticky top-0 z-40 flex h-12 items-center justify-between border-b bg-background/95 px-3 backdrop-blur-sm">
         <RevierWechsler />
+        <span className="text-xs font-medium rounded-full bg-amber-100 text-amber-800 px-2 py-0.5">
+          Beta&nbsp;v{__APP_VERSION__}
+        </span>
       </header>
 
       <main className="flex flex-1 flex-col pb-16">

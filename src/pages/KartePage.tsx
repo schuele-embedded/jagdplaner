@@ -118,9 +118,9 @@ export function KartePage() {
         )}
       </div>
 
-      {/* Bottom-sheet form */}
+      {/* Bottom-sheet form – fixed so it always overlays the viewport */}
       {showForm && revierId && (
-        <div className="absolute inset-x-0 bottom-0 z-[2000] max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white px-4 pb-8 pt-4 shadow-2xl">
+        <div className="fixed inset-x-0 bottom-0 z-[2000] max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white px-4 pb-8 pt-4 shadow-2xl">
           <div className="mx-auto mb-3 h-1 w-12 rounded-full bg-gray-300" />
           <EinrichtungForm
             initialPosition={formPosition ?? undefined}
