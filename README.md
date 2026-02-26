@@ -79,7 +79,45 @@ Im Supabase Dashboard: **SQL Editor → New query**, Inhalt der Migrationsskript
 | `npm run preview` | Produktions-Build lokal vorschauen |
 | `npm run typecheck` | TypeScript-Fehler prüfen |
 | `npm run lint` | ESLint ausführen |
-| `npm run deploy` | Build + FTP-Upload zu serverprofis.de |
+| `npm run deploy` | Build + FTP-Upload zu serverprofis.de (via `./deploy-ftp.sh`) |
+
+---
+
+## Deployment
+
+### Voraussetzung: `lftp` installieren
+
+```bash
+# Ubuntu/Debian
+sudo apt-get install lftp
+
+# macOS
+brew install lftp
+```
+
+### FTP-Zugangsdaten konfigurieren
+
+In `deploy-ftp.sh` die drei Variablen oben anpassen:
+
+```bash
+FTP_SERVER="ftp.serverprofis.de"   # aus Hosting-Panel
+FTP_USER="user@ansitzplaner.de"    # FTP-Benutzername
+REMOTE_DIR="/ansitzplaner.de"      # Zielverzeichnis auf dem Server
+```
+
+### Deploy ausführen
+
+```bash
+./deploy-ftp.sh
+# oder:
+npm run deploy
+```
+
+Das Script:
+1. Löscht den alten Build
+2. Führt `npm run build` aus (TypeScript-Check + Vite-Build)
+3. Fragt das FTP-Passwort **interaktiv** ab (kein Klartext im Repository)
+4. Lädt `dist/` via `lftp mirror --reverse --delete` hoch
 
 ---
 
