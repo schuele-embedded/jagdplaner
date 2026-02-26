@@ -88,7 +88,7 @@ export function RevierMap({ children, onMapClick, clickMode = false }: RevierMap
         center={[51.1, 10.4]}
         zoom={13}
         style={{ height: '100%', width: '100%' }}
-        zoomControl={false}
+        zoomControl={true}
       >
         <MapResizeHandler />
         <LayersControl position="topright">
