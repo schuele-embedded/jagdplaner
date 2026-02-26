@@ -35,15 +35,15 @@
 | TASK-015 | Ansitz-Erfassung Flow | ✅ done | 198df1c |
 | TASK-016 | Statistiken & Dashboard | ✅ done | 7c956cc |
 | TASK-017 | Deployment & Error-Tracking | ✅ done | – |
-| TASK-018 | Rebranding & SEO (AnsitzPlaner) | 🔲 todo | – |
-| TASK-019 | FTP-Deploy-Script (serverprofis.de) | 🔲 todo | – |
-| TASK-020 | Rechtliches: Impressum, Datenschutz, Cookie-Consent | 🔲 todo | – |
+| TASK-018 | Rebranding & SEO (AnsitzPlaner) | ✅ done | e3057fd |
+| TASK-019 | FTP-Deploy-Script (serverprofis.de) | ✅ done | 9b2541c |
+| TASK-020 | Rechtliches: Impressum, Datenschutz, Cookie-Consent | ✅ done | bf5cc73 |
 
 ---
 
 ## MVP vollständig implementiert ✅
 
-Alle 17 MVP-Tasks sind erledigt. Für Go-Live sind noch TASK-018–020 erforderlich.
+Alle 17 MVP-Tasks sind erledigt. TASK-018–020 (Rebranding, Deployment, Rechtliches) sind ebenfalls abgeschlossen. **App ist Go-Live-ready.**
 
 ### Hosting
 
@@ -55,9 +55,9 @@ Alle 17 MVP-Tasks sind erledigt. Für Go-Live sind noch TASK-018–020 erforderl
 
 ### Deployment-Checkliste (Go-Live)
 
-- [ ] TASK-018 abschließen (Rebranding, SEO-Meta-Tags)
-- [ ] TASK-019 abschließen (.htaccess, FTP-Script, `npm run deploy`)
-- [ ] TASK-020 abschließen (Impressum, Datenschutz, Cookie-Consent)
+- [x] TASK-018 abschließen (Rebranding, SEO-Meta-Tags)
+- [x] TASK-019 abschließen (.htaccess, FTP-Script, `./deploy-ftp.sh`)
+- [x] TASK-020 abschließen (Impressum, Datenschutz, Cookie-Consent)
 - [ ] `.env` mit `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` für Build setzen
 - [ ] `npm run build` → `dist/` bauen
 - [ ] `./deploy-ftp.sh` → interaktiv FTP-Passwort eingeben, Upload zu serverprofis.de
