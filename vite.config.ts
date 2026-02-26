@@ -27,12 +27,22 @@ export default defineConfig({
       workbox: {
         runtimeCaching: [
           {
-            // OSM tiles – cache first, max 500 entries, 30 days
-            urlPattern: /^https:\/\/[abc]\.tile\.openstreetmap\.org\/.*/i,
+            // OSM tiles zoom >= 14 (detail) – CacheFirst, max 1000 entries, 30 days
+            urlPattern: /^https:\/\/[abc]\.tile\.openstreetmap\.org\/1[4-9]\//i,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'osm-tiles',
-              expiration: { maxEntries: 500, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              cacheName: 'osm-tiles-detail',
+              expiration: { maxEntries: 1000, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            // OSM tiles zoom < 14 (overview) – StaleWhileRevalidate, max 200 entries
+            urlPattern: /^https:\/\/[abc]\.tile\.openstreetmap\.org\/([0-9]|1[0-3])\//i,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'osm-tiles-overview',
+              expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 14 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },
