@@ -1,4 +1,4 @@
-# CLAUDE.md – JagdPlaner
+# CLAUDE.md – AnsitzPlaner
 
 Verhaltensregeln zur Vermeidung typischer LLM-Programmierfehler. Bei trivialen Aufgaben nach Ermessen handeln.
 
@@ -43,8 +43,9 @@ Mehrstufige Aufgaben als Plan:
 
 ## Projektübersicht
 
-**JagdPlaner** ist eine kartenbasierte Progressive Web App (PWA) für Jäger im deutschsprachigen Raum (D-A-CH).  
-Ziel ist die intelligente Jagdplanung mit KI-gestützter Erfolgsvorhersage basierend auf historischen Daten, Wetterbedingungen und Wildbiologie.
+**AnsitzPlaner** (ehemals JagdPlaner) ist eine kartenbasierte Progressive Web App (PWA) für Jäger im deutschsprachigen Raum (D-A-CH).  
+Ziel ist die intelligente Jagdplanung mit KI-gestützter Erfolgsvorhersage basierend auf historischen Daten, Wetterbedingungen und Wildbiologie.  
+Erreichbar unter `www.ansitzplaner.de` · `www.pirschplaner.de`.
 
 ---
 
@@ -112,9 +113,11 @@ Ziel ist die intelligente Jagdplanung mit KI-gestützter Erfolgsvorhersage basie
 
 | Umgebung | Dienst |
 |---|---|
-| Frontend | Vercel oder Netlify |
-| Backend | Supabase (Free Tier / self-hosted) |
-| Kosten | €0–20/Monat (Start), €50–150/Monat (Skalierung) |
+| Frontend | serverprofis.de (Shared Hosting, Apache, FTP-Deploy) |
+| Domains | www.ansitzplaner.de (primär) · www.pirschplaner.de (Alias) |
+| Backend | Supabase (Free Tier / self-hosted, Region EU Frankfurt) |
+| Deploy | FTP-Script `npm run deploy`, kein CI/CD |
+| Kosten | ~€15–30/Monat (Start), ~€50–100/Monat (Skalierung) |
 
 ---
 

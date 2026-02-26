@@ -1,6 +1,8 @@
-# JagdPlaner
+# AnsitzPlaner
 
 Kartenbasierte Progressive Web App für Jäger – intelligente Jagdplanung mit KI-gestützter Erfolgsvorhersage.
+
+**Live**: [www.ansitzplaner.de](https://www.ansitzplaner.de) · [www.pirschplaner.de](https://www.pirschplaner.de)
 
 ---
 
@@ -77,6 +79,7 @@ Im Supabase Dashboard: **SQL Editor → New query**, Inhalt der Migrationsskript
 | `npm run preview` | Produktions-Build lokal vorschauen |
 | `npm run typecheck` | TypeScript-Fehler prüfen |
 | `npm run lint` | ESLint ausführen |
+| `npm run deploy` | Build + FTP-Upload zu serverprofis.de |
 
 ---
 

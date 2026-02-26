@@ -70,11 +70,14 @@ Eine kartenbasierte Progressive Web App für Jäger zur intelligenten Jagdplanun
 - Native Features: GPS, Kamera, Kompass
 
 #### Hosting
-- **Frontend**: Vercel oder Netlify (CDN, automatisches Deployment)
-- **Backend**: Supabase (Free Tier für Start) oder selbst gehostet
+- **Frontend**: serverprofis.de (Shared Hosting, Apache) – FTP-Upload nach `npm run build`
+- **Domains**: `www.ansitzplaner.de` (primär) · `www.pirschplaner.de` (Weiterleitung auf ansitzplaner.de)
+- **Backend**: Supabase (Free Tier für Start, EU-Region Frankfurt)
+- **Deploy**: FTP-Script (`scripts/deploy.mjs`), keine CI/CD-Pipeline
+- **SPA-Routing**: Apache `.htaccess` mod_rewrite
 - **Kosten-Schätzung**: 
-  - Start: €0-20/Monat (Supabase Free Tier + Domain)
-  - Skaliert: €50-150/Monat (bei 100+ aktiven Revieren)
+  - Start: €15-30/Monat (Serverprofis.de Hosting + Supabase Free Tier + Domains)
+  - Skaliert: €50-100/Monat (bei 100+ aktiven Revieren)
 
 ---
 
@@ -1136,11 +1139,11 @@ Kontakt Datenschutzbeauftragter: [Email]
 ### 8.3 Kostenstruktur
 
 **Fixkosten (monatlich):**
-- Hosting (Vercel): €20
+- Hosting (serverprofis.de): €8-15 (Shared Hosting inkl. SSL)
 - Supabase: €25 (Pro Plan für bessere Limits)
-- Domain & SSL: €2
+- Domains ansitzplaner.de + pirschplaner.de: €2-3
 - E-Mail-Service (Transaktional): €5
-- Gesamt: ~€50/Monat
+- Gesamt: ~€40-50/Monat
 
 **Variable Kosten:**
 - Storage (Fotos): ~€0.023/GB
