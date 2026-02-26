@@ -118,18 +118,32 @@ export function KartePage() {
         )}
       </div>
 
-      {/* Bottom-sheet form – fixed so it always overlays the viewport */}
+      {/* Bottom-sheet (mobile) / Modal (desktop) */}
       {showForm && revierId && (
-        <div className="fixed inset-x-0 bottom-0 z-[2000] max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white px-4 pb-8 pt-4 shadow-2xl">
-          <div className="mx-auto mb-3 h-1 w-12 rounded-full bg-gray-300" />
-          <EinrichtungForm
-            initialPosition={formPosition ?? undefined}
-            editData={editTarget ?? undefined}
-            revierID={revierId}
-            onSave={handleSave}
-            onCancel={handleCloseForm}
+        <>
+          {/* Backdrop on desktop */}
+          <div
+            className="fixed inset-0 z-[1999] bg-black/30 hidden sm:block"
+            onClick={handleCloseForm}
           />
-        </div>
+          <div className="
+            fixed z-[2000] overflow-y-auto bg-white shadow-2xl
+            /* mobile: full-width bottom sheet */
+            inset-x-0 bottom-0 max-h-[85vh] rounded-t-2xl px-4 pb-8 pt-4
+            /* desktop: centered modal */
+            sm:inset-auto sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2
+            sm:w-full sm:max-w-lg sm:max-h-[90vh] sm:rounded-2xl sm:px-6 sm:pb-6 sm:pt-5
+          ">
+            <div className="mx-auto mb-3 h-1 w-12 rounded-full bg-gray-300 sm:hidden" />
+            <EinrichtungForm
+              initialPosition={formPosition ?? undefined}
+              editData={editTarget ?? undefined}
+              revierID={revierId}
+              onSave={handleSave}
+              onCancel={handleCloseForm}
+            />
+          </div>
+        </>
       )}
     </div>
   )
