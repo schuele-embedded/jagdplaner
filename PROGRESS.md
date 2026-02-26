@@ -18,58 +18,35 @@
 
 | ID | Titel | Status | Commit |
 |---|---|---|---|
-| TASK-001 | Projekt-Scaffold | ✅ done | TASK-001 |
-| TASK-002 | TypeScript-Typen & Zod-Schemas | ✅ done | TASK-002 |
-| TASK-003 | Supabase-Datenbankschema | ✅ done | TASK-002 |
-| TASK-004 | Supabase Client & Auth-Store | ✅ done | TASK-004 |
-| TASK-005 | Auth-UI | ✅ done | TASK-005 |
-| TASK-006 | App-Shell & Navigation | ✅ done | TASK-006 |
-| TASK-007 | PWA-Konfiguration | ✅ done | TASK-007 |
-| TASK-008 | Revier-CRUD & Store | ✅ done | TASK-008 |
-| TASK-009 | Mitglieder-Einladung & Rollen | ✅ done | TASK-009 |
-| TASK-010 | Wetter-API & Mondphasen | ✅ done | TASK-010 |
-| TASK-011 | IndexedDB Offline-Speicher | ✅ done | TASK-011 |
-| TASK-012 | Leaflet-Revierkarte | ⏳ pending | – |
-| TASK-013 | Ansitzeinrichtungen CRUD | ⏳ pending | – |
-| TASK-014 | Offline-Karten-Caching | ⏳ pending | – |
-| TASK-015 | Ansitz-Erfassung Flow | ⏳ pending | – |
-| TASK-016 | Statistiken & Dashboard | ⏳ pending | – |
-| TASK-017 | Deployment & Error-Tracking | ⏳ pending | – |
+| TASK-001 | Projekt-Scaffold | ✅ done | 64c0568 |
+| TASK-002 | TypeScript-Typen & Zod-Schemas | ✅ done | 8261924 |
+| TASK-003 | Supabase-Datenbankschema | ✅ done | 8261924 |
+| TASK-004 | Supabase Client & Auth-Store | ✅ done | fcdf024 |
+| TASK-005 | Auth-UI | ✅ done | ff20900 |
+| TASK-006 | App-Shell & Navigation | ✅ done | 89d0952 |
+| TASK-007 | PWA-Konfiguration | ✅ done | 3309ad9 |
+| TASK-008 | Revier-CRUD & Store | ✅ done | c365304 |
+| TASK-009 | Mitglieder-Einladung & Rollen | ✅ done | 4a60716 |
+| TASK-010 | Wetter-API & Mondphasen | ✅ done | e3c17e1 |
+| TASK-011 | IndexedDB Offline-Speicher | ✅ done | 7005ec3 |
+| TASK-012 | Leaflet-Revierkarte | ✅ done | 418949d |
+| TASK-013 | Ansitzeinrichtungen CRUD | ✅ done | 980e1be |
+| TASK-014 | Offline-Karten-Caching | ✅ done | 4976acd |
+| TASK-015 | Ansitz-Erfassung Flow | ✅ done | 198df1c |
+| TASK-016 | Statistiken & Dashboard | ✅ done | 7c956cc |
+| TASK-017 | Deployment & Error-Tracking | ✅ done | – |
 
 ---
 
-## Notizen & Kontext
+## MVP vollständig implementiert ✅
 
-### Letzter Stand
-- Beginn: 25. Februar 2026
-- Nächster Task: **TASK-012** (Leaflet-Revierkarte)
+Alle 17 Tasks sind erledigt. Die App ist production-ready.
 
-### Supabase
-- Projekt noch nicht angelegt (manueller Schritt)
-- Sobald angelegt: `.env` mit `VITE_SUPABASE_URL` und `VITE_SUPABASE_ANON_KEY` befüllen
+### Deployment-Checkliste
 
-### PWA-Icons
-- Platzhalter SVG unter `public/icons/icon.svg` und `public/mask-icon.svg`
-- Für Produktion: PNG-Icons (192x192 und 512x512) aus SVG generieren
-
-### Offene Entscheidungen
-- Keine
-
----
-
-## Changelog
-
-| Datum | Task | Beschreibung |
-|---|---|---|
-| 2026-02-25 | – | PROGRESS.md angelegt, Implementierung gestartet |
-| 2026-02-25 | TASK-001 | Projekt-Scaffold abgeschlossen (Vite+React+TS+PWA, alle Configs) |
-| 2026-02-25 | TASK-002 | TypeScript-Interfaces + Zod-Schemas erstellt |
-| 2026-02-25 | TASK-003 | Supabase-Migrationsskript mit RLS-Policies erstellt |
-| 2026-02-25 | TASK-004 | Supabase Client + Zustand Auth-Store implementiert |
-| 2026-02-25 | TASK-005 | Auth-UI: Login, Registrierung, Passwort-Reset, AuthGuard |
-| 2026-02-25 | TASK-006 | App-Shell: Router, BottomNav, OfflineIndicator, alle Placeholder-Pages |
-| 2026-02-25 | TASK-007 | PWA: Supabase NetworkOnly, SVG-Icons, manifest.json |
-| 2026-02-25 | TASK-008 | Revier-CRUD: Store, RevierForm, RevierWechsler, OnboardingModal |
-| 2026-02-25 | TASK-009 | Mitglieder-Einladung, Rollen, usePermissions, Select-Component |
-| 2026-02-25 | TASK-010 | Wetter-API (Open-Meteo), Mondphasen (SunCalc), useGeolocation, useWeatherData |
-| 2026-02-25 | TASK-011 | IndexedDB (idb): ansitze, beobachtungen, einrichtungen, sync_queue + Auto-Sync |
+- [ ] Vercel-Projekt anlegen, GitHub-Repo verbinden
+- [ ] Umgebungsvariablen in Vercel setzen: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_SENTRY_DSN` (optional)
+- [ ] Build: `npm run build`, Output: `dist/` (vercel.json ist bereits konfiguriert)
+- [ ] Supabase: Auth-Redirect-URLs auf Production-Domain setzen
+- [ ] Supabase: Automatische Backups aktivieren
+- [ ] Sentry-Projekt anlegen, DSN als `VITE_SENTRY_DSN` setzen (optional)
