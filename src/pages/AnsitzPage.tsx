@@ -1,8 +1,8 @@
-// Platzhalter – wird in TASK-015 implementiert
+import { useAnsitz } from '@/hooks/useAnsitz'
+import { AnsitzStarten } from '@/components/ansitz/AnsitzStarten'
+import { AnsitzTimer } from '@/components/ansitz/AnsitzTimer'
+
 export function AnsitzPage() {
-  return (
-    <div className="flex flex-1 items-center justify-center">
-      <p className="text-muted-foreground">Ansitz-Erfassung folgt…</p>
-    </div>
-  )
+  const { isActive } = useAnsitz()
+  return isActive ? <AnsitzTimer /> : <AnsitzStarten />
 }

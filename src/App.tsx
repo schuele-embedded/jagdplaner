@@ -34,6 +34,7 @@ function AppShell() {
           <Route path="/" element={<KartePage />} />
           <Route path="/statistiken" element={<StatistikenPage />} />
           <Route path="/ansitz" element={<AnsitzPage />} />
+          <Route path="/ansitz/aktiv" element={<AnsitzPage />} />
           <Route path="/liste" element={<ListePage />} />
           <Route path="/menue" element={<MenuPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />

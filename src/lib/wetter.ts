@@ -11,17 +11,17 @@ function cacheKey(lat: number, lng: number): string {
 
 // ---- Helpers -------------------------------------------------------------
 
-function windDegToCardinal(deg: number): Windrichtung {
+export function windDegToCardinal(deg: number): Windrichtung {
   const dirs: Windrichtung[] = ['N', 'NO', 'O', 'SO', 'S', 'SW', 'W', 'NW']
   return dirs[Math.round(deg / 45) % 8]
 }
 
-function windSpeedToBeaufort(kmh: number): number {
+export function windSpeedToBeaufort(kmh: number): number {
   const thresholds = [1, 6, 12, 20, 29, 39, 50, 62, 75, 89, 103, 118]
   return thresholds.findIndex((t) => kmh < t)
 }
 
-function niederschlagFromMm(mm: number): Niederschlag {
+export function niederschlagFromMm(mm: number): Niederschlag {
   if (mm <= 0) return 'kein'
   if (mm <= 2) return 'leicht'
   if (mm <= 10) return 'mittel'
