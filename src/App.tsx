@@ -16,6 +16,9 @@ import { StatistikenPage } from '@/pages/StatistikenPage'
 import { AnsitzPage } from '@/pages/AnsitzPage'
 import { ListePage } from '@/pages/ListePage'
 import { MenuPage } from '@/pages/MenuPage'
+import { ImpressumPage } from '@/pages/ImpressumPage'
+import { DatenschutzPage } from '@/pages/DatenschutzPage'
+import { CookieNotice } from '@/components/CookieNotice'
 
 function AppShell() {
   const { reviere, loading } = useRevierStore()
@@ -45,6 +48,8 @@ function AppShell() {
 
       {/* Onboarding: erstes Revier anlegen */}
       {!loading && <OnboardingModal open={reviere.length === 0} />}
+
+      <CookieNotice />
     </div>
   )
 }
@@ -71,6 +76,8 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registrierung" element={<RegistrierungPage />} />
         <Route path="/passwort-reset" element={<PasswortResetPage />} />
+        <Route path="/impressum" element={<ImpressumPage />} />
+        <Route path="/datenschutz" element={<DatenschutzPage />} />
 
         {/* Protected routes */}
         <Route

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { LogOut, User, Users, Map, Download } from 'lucide-react'
 import { useUserStore } from '@/store/useUserStore'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -174,6 +175,11 @@ export function MenuPage() {
           </button>
         </CardContent>
       </Card>
+
+      <div className="flex justify-center gap-6 py-2 text-xs text-muted-foreground">
+        <Link to="/impressum" className="hover:underline">Impressum</Link>
+        <Link to="/datenschutz" className="hover:underline">Datenschutz</Link>
+      </div>
     </div>
   )
 }
