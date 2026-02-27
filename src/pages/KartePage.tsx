@@ -1,20 +1,24 @@
 import { useState } from 'react'
-import { Plus, X } from 'lucide-react'
+import { Plus, X, Layers } from 'lucide-react'
 import { RevierMap } from '@/components/karte/RevierMap'
 import { RevierBoundary } from '@/components/karte/RevierBoundary'
 import { UserPosition } from '@/components/karte/UserPosition'
 import { AnsitzMarker } from '@/components/karte/AnsitzMarker'
+import { HeatmapOverlay } from '@/components/karte/HeatmapOverlay'
 import { EinrichtungForm } from '@/components/einrichtungen/EinrichtungForm'
 import { useRevier } from '@/hooks/useRevier'
 import { useEinrichtungen } from '@/hooks/useEinrichtungen'
+import { useHeatmap } from '@/hooks/useHeatmap'
 import type { Ansitzeinrichtung } from '@/types'
 import type { AnsitzeinrichtungFormValues } from '@/lib/validierung'
 
 export function KartePage() {
   const { activeRevier, revierId, hasRevier } = useRevier()
   const { einrichtungen, create, update, remove } = useEinrichtungen()
+  const { scores } = useHeatmap()
 
   const [clickMode, setClickMode] = useState(false)
+  const [heatmapActive, setHeatmapActive] = useState(false)
   const [formPosition, setFormPosition] = useState<{ lat: number; lng: number } | null>(null)
   const [editTarget, setEditTarget] = useState<Ansitzeinrichtung | null>(null)
   const [showForm, setShowForm] = useState(false)
@@ -91,12 +95,28 @@ export function KartePage() {
               onDelete={remove}
             />
           ))}
+          {heatmapActive && <HeatmapOverlay einrichtungen={einrichtungen} scores={scores} />}
         </RevierMap>
 
         {/* Click-mode banner */}
         {clickMode && (
           <div className="absolute left-1/2 top-3 z-[1000] -translate-x-1/2 rounded-full bg-green-700 px-4 py-2 text-sm text-white shadow-lg">
             Auf Karte tippen, um Einrichtung zu platzieren
+          </div>
+        )}
+
+        {/* FAB – heatmap toggle */}
+        {!showForm && (
+          <div className="absolute bottom-36 right-4 z-[1000]">
+            <button
+              onClick={() => setHeatmapActive((v) => !v)}
+              title={heatmapActive ? 'Heatmap ausblenden' : 'Erfolgs-Heatmap anzeigen'}
+              className={`flex h-12 w-12 items-center justify-center rounded-full shadow-lg text-white transition-colors ${
+                heatmapActive ? 'bg-amber-500 hover:bg-amber-600' : 'bg-gray-600 hover:bg-gray-700'
+              }`}
+            >
+              <Layers size={20} />
+            </button>
           </div>
         )}
 

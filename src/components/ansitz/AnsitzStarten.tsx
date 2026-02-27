@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
+import { VorhersageWidget } from '@/components/ansitz/VorhersageWidget'
 import type { Bedingungen } from '@/types'
 
 function formatTime(d: Date): string {
@@ -136,6 +137,9 @@ export function AnsitzStarten() {
           </p>
         )}
       </div>
+
+      {/* Vorhersage-Widget */}
+      <VorhersageWidget />
 
       {/* Start button */}
       <Button

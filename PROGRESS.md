@@ -38,10 +38,10 @@
 | TASK-018 | Rebranding & SEO (AnsitzPlaner) | ✅ done | e3057fd |
 | TASK-019 | FTP-Deploy-Script (serverprofis.de) | ✅ done | 9b2541c |
 | TASK-020 | Rechtliches: Impressum, Datenschutz, Cookie-Consent | ✅ done | bf5cc73 |
-| TASK-021 | Heatmap-Berechnungslogik (statistisch) | 🔲 todo | – |
-| TASK-022 | Heatmap-Overlay auf Karte | 🔲 todo | – |
-| TASK-023 | Vorhersage-Widget & Tages-Empfehlung | 🔲 todo | – |
-| TASK-024 | GPS UserPosition-Button auf Karte | 🔲 todo | – |
+| TASK-021 | Heatmap-Berechnungslogik (statistisch) | ✅ done | – |
+| TASK-022 | Heatmap-Overlay auf Karte | ✅ done | – |
+| TASK-023 | Vorhersage-Widget & Tages-Empfehlung | ✅ done | – |
+| TASK-024 | GPS UserPosition-Button auf Karte | ✅ done | – |
 | TASK-025 | 7-Tage-Wetterplanung | 🔲 todo | – |
 | TASK-026 | Statistiken Phase 2 | 🔲 todo | – |
 
@@ -63,10 +63,10 @@ Phase 2 nutzt **regelbasierte Statistik** (reicht für <200 Ansitze, ist vollst�
 
 | ID | Titel | Status | Abhängigkeit |
 |---|---|---|---|
-| TASK-021 | Heatmap-Berechnungslogik (statistisch) | 🔲 todo | TASK-015 |
-| TASK-022 | Heatmap-Overlay auf Karte | 🔲 todo | TASK-021 |
-| TASK-023 | Vorhersage-Widget & Tages-Empfehlung | 🔲 todo | TASK-021 |
-| TASK-024 | GPS UserPosition-Button auf Karte | 🔲 todo | – |
+| TASK-021 | Heatmap-Berechnungslogik (statistisch) | ✅ done | TASK-015 |
+| TASK-022 | Heatmap-Overlay auf Karte | ✅ done | TASK-021 |
+| TASK-023 | Vorhersage-Widget & Tages-Empfehlung | ✅ done | TASK-021 |
+| TASK-024 | GPS UserPosition-Button auf Karte | ✅ done | – |
 | TASK-025 | 7-Tage-Wetterplanung | 🔲 todo | TASK-010 |
 | TASK-026 | Statistiken Phase 2 (Tageszeit-Chart, Mond) | 🔲 todo | TASK-016 |
 
