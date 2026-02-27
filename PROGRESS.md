@@ -42,8 +42,8 @@
 | TASK-022 | Heatmap-Overlay auf Karte | ✅ done | – |
 | TASK-023 | Vorhersage-Widget & Tages-Empfehlung | ✅ done | – |
 | TASK-024 | GPS UserPosition-Button auf Karte | ✅ done | – |
-| TASK-025 | 7-Tage-Wetterplanung | 🔲 todo | – |
-| TASK-026 | Statistiken Phase 2 | 🔲 todo | – |
+| TASK-025 | 7-Tage-Wetterplanung | ✅ done | f453fe6 |
+| TASK-026 | Statistiken Phase 2 | ✅ done | f453fe6 |
 
 ---
 
@@ -67,8 +67,8 @@ Phase 2 nutzt **regelbasierte Statistik** (reicht für <200 Ansitze, ist vollst�
 | TASK-022 | Heatmap-Overlay auf Karte | ✅ done | TASK-021 |
 | TASK-023 | Vorhersage-Widget & Tages-Empfehlung | ✅ done | TASK-021 |
 | TASK-024 | GPS UserPosition-Button auf Karte | ✅ done | – |
-| TASK-025 | 7-Tage-Wetterplanung | 🔲 todo | TASK-010 |
-| TASK-026 | Statistiken Phase 2 (Tageszeit-Chart, Mond) | 🔲 todo | TASK-016 |
+| TASK-025 | 7-Tage-Wetterplanung | ✅ done | f453fe6 |
+| TASK-026 | Statistiken Phase 2 (Tageszeit-Chart, Mond) | ✅ done | f453fe6 |
 
 ---
 
@@ -478,3 +478,5 @@ Logik: Berechnet Scores stündlich 0–23 Uhr, findet das Maximum → "Beste Zei
 - ✅ Beobachtung/Abschuss erfassen: Sheet geht über ganze Breite, Speichern-Button durch Nav-Bar verborgen → `pb-24` statt `pb-8` im Bottom-Sheet; Desktop: zentriertes Modal (`sm:items-center sm:max-w-lg`); Drag-Handle auf Desktop ausgeblendet
 - ✅ Wildart-/Verhalten-Dropdown in Beobachtung & Abschuss öffnet nicht → `SelectContent className="z-[9999]"` in BeobachtungForm und AbschussForm
 - ✅ Gewählter Kartenlayer (Satellit/Topographie) wird nach Tab-Wechsel nicht gespeichert → `baselayerchange`-Event schreibt Layer-Name in `localStorage` (`ansitzplaner-map-layer`); `checked`-Prop auf `LayersControl.BaseLayer` wird beim Rendern aus localStorage gelesen
+
+- Passwort vergessen: Klickt man auf den link in der email, die von supabase kommt, werde ich auf localhost:3000 weitergeleitet oder automatisch angemeldet, statt dass das passwort zurückgesetzt werden kann.
