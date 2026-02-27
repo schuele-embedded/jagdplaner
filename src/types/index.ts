@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// JagdPlaner – Central TypeScript Types
+// AnsitzPlaner – Central TypeScript Types
 // Naming: English identifiers, German domain values (Wildart, Rolle etc.)
 // -----------------------------------------------------------------------
 

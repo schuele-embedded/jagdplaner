@@ -51,6 +51,6 @@ export const useAnsitzStore = create<AnsitzState & AnsitzActions>()(
         set(initialState)
       },
     }),
-    { name: 'jagdplaner-active-ansitz' }
+    { name: 'ansitzplaner-active-ansitz' }
   )
 )

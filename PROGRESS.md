@@ -1,4 +1,4 @@
-# JagdPlaner – Implementierungsfortschritt
+# AnsitzPlaner – Implementierungsfortschritt
 
 > Dieses File trackt den Umsetzungsstand des MVP (definiert in MVP.md).
 > Beim Fortführen: letzten offenen Task lesen, Kontext aus "Notizen" nehmen, weitermachen.

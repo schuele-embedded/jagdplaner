@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabase'
 import type { Revier } from '@/types'
 import type { RevierFormValues } from '@/lib/validierung'
 
-const ACTIVE_REVIER_KEY = 'jagdplaner_active_revier_id'
+const ACTIVE_REVIER_KEY = 'ansitzplaner_active_revier_id'
 
 interface RevierState {
   reviere: Revier[]

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 // -----------------------------------------------------------------------
-// JagdPlaner – Zod Validation Schemas
+// AnsitzPlaner – Zod Validation Schemas
 // Inferred TypeScript types are re-exported for form usage.
 // -----------------------------------------------------------------------
 

@@ -30,7 +30,7 @@ if [ ! -d "node_modules" ]; then
 fi
 
 # ---- Dev-Server starten -----------------------------------------------
-echo "🚀 JagdPlaner Dev-Server startet auf http://localhost:5173"
+echo "🚀 AnsitzPlaner Dev-Server startet auf http://localhost:5173"
 echo "   Zum Beenden: Strg+C"
 echo ""
 npm run dev

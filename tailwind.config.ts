@@ -7,7 +7,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // JagdPlaner brand colours
+        // AnsitzPlaner brand colours
         forest: {
           DEFAULT: '#2d5016',
           dark: '#4a7c2c',

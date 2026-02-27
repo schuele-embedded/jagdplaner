@@ -72,7 +72,7 @@ export function RegistrierungPage() {
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">🦌 JagdPlaner</CardTitle>
+          <CardTitle className="text-2xl">🦌 AnsitzPlaner</CardTitle>
           <CardDescription>Erstelle dein kostenloses Konto</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit(onSubmit)}>

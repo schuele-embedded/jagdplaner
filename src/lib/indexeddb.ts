@@ -4,7 +4,7 @@ import type { Ansitz, Beobachtung, Ansitzeinrichtung } from '@/types'
 
 // ---- DB Schema -----------------------------------------------------------
 
-const DB_NAME = 'jagdplaner-db'
+const DB_NAME = 'ansitzplaner-db'
 const DB_VERSION = 1
 
 export interface SyncOperation {
@@ -15,7 +15,7 @@ export interface SyncOperation {
   created_at: string
 }
 
-type JagdPlanerDB = {
+type AnsitzPlanerDB = {
   ansitze: {
     key: string
     value: Ansitz
@@ -37,11 +37,11 @@ type JagdPlanerDB = {
   }
 }
 
-let dbPromise: Promise<IDBPDatabase<JagdPlanerDB>> | null = null
+let dbPromise: Promise<IDBPDatabase<AnsitzPlanerDB>> | null = null
 
-function getDB(): Promise<IDBPDatabase<JagdPlanerDB>> {
+function getDB(): Promise<IDBPDatabase<AnsitzPlanerDB>> {
   if (!dbPromise) {
-    dbPromise = openDB<JagdPlanerDB>(DB_NAME, DB_VERSION, {
+    dbPromise = openDB<AnsitzPlanerDB>(DB_NAME, DB_VERSION, {
       upgrade(db) {
         if (!db.objectStoreNames.contains('ansitze')) {
           const ansitzeStore = db.createObjectStore('ansitze', { keyPath: 'id' })

@@ -21,7 +21,7 @@ export function OnboardingModal({ open }: OnboardingModalProps) {
     <Dialog open={open && !done}>
       <DialogContent className="max-h-[90vh] overflow-y-auto" onInteractOutside={(e) => e.preventDefault()}>
         <DialogHeader>
-          <DialogTitle>🦌 Willkommen bei JagdPlaner!</DialogTitle>
+          <DialogTitle>🦌 Willkommen bei AnsitzPlaner!</DialogTitle>
           <DialogDescription>
             Lege jetzt dein erstes Revier an, um loszulegen.
           </DialogDescription>
