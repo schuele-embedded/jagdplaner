@@ -84,7 +84,7 @@ export function BeobachtungForm({ onSave, onCancel }: BeobachtungFormProps) {
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="z-[9999]">
             {sortedWildarten.map((w) => (
               <SelectItem key={w} value={w}>{w}</SelectItem>
             ))}
@@ -145,7 +145,7 @@ export function BeobachtungForm({ onSave, onCancel }: BeobachtungFormProps) {
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="z-[9999]">
             <SelectItem value="aesend">Äsend</SelectItem>
             <SelectItem value="ziehend">Ziehend</SelectItem>
             <SelectItem value="fliehend">Fliehend</SelectItem>

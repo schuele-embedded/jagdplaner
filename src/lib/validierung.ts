@@ -64,9 +64,18 @@ export const AnsitzeinrichtungSchema = z.object({
   name: z.string().min(1, 'Name ist erforderlich').max(100),
   beschreibung: z.string().max(500).nullable().optional(),
   position: gpsPositionSchema,
-  hoehe_meter: z.number().min(0).max(50).nullable().optional(),
-  ausrichtung_grad: z.number().min(0).max(359).nullable().optional(),
-  sichtweite_meter: z.number().min(0).max(5000).nullable().optional(),
+  hoehe_meter: z.preprocess(
+    (v) => (v === '' || v === null || (typeof v === 'number' && isNaN(v)) ? null : Number(v)),
+    z.number().min(0).max(50).nullable().optional()
+  ),
+  ausrichtung_grad: z.preprocess(
+    (v) => (v === '' || v === null || (typeof v === 'number' && isNaN(v)) ? null : Number(v)),
+    z.number().min(0).max(359).nullable().optional()
+  ),
+  sichtweite_meter: z.preprocess(
+    (v) => (v === '' || v === null || (typeof v === 'number' && isNaN(v)) ? null : Number(v)),
+    z.number().min(0).max(5000).nullable().optional()
+  ),
   zustand: einrichtungZustandEnum.default('gut'),
   letzte_wartung: z.string().nullable().optional(),
   naechste_wartung: z.string().nullable().optional(),

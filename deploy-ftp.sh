@@ -19,7 +19,7 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 # FTP Configuration – bitte anpassen!
-FTP_SERVER="ftp.sschuele-embedded.de"
+FTP_SERVER="ftp.schuele-embedded.de"
 FTP_USER="florian@schuele-embedded.de"
 FTP_PORT="21"
 REMOTE_DIR="/ansitzplaner.de"

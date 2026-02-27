@@ -112,7 +112,7 @@ export function EinrichtungForm({
                 <SelectTrigger id="typ">
                   <SelectValue placeholder="Typ wählen" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="z-[9999]">
                   {TYPEN.map((t) => (
                     <SelectItem key={t} value={t}>
                       {t}
@@ -169,7 +169,7 @@ export function EinrichtungForm({
                 <SelectTrigger id="zustand">
                   <SelectValue placeholder="Zustand wählen" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="z-[9999]">
                   {ZUSTÄNDE.map((z) => (
                     <SelectItem key={z} value={z}>
                       {ZUSTAND_LABEL[z]}

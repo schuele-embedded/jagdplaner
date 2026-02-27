@@ -59,7 +59,7 @@ export function AbschussForm({ onSave, onCancel }: AbschussFormProps) {
         <Label>Wildart</Label>
         <Select onValueChange={(v) => setWildart(v as Wildart)} value={wildart}>
           <SelectTrigger><SelectValue /></SelectTrigger>
-          <SelectContent>
+          <SelectContent className="z-[9999]">
             {WILDART_OPTIONS.map((w) => <SelectItem key={w} value={w}>{w}</SelectItem>)}
           </SelectContent>
         </Select>

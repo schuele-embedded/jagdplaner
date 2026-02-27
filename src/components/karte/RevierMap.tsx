@@ -32,7 +32,47 @@ const LAYERS = {
   },
 }
 
-// Calls map.invalidateSize() whenever the container resizes
+// Persists map center/zoom and active layer in localStorage
+const MAP_POS_KEY = 'ansitzplaner-map-pos'
+const MAP_LAYER_KEY = 'ansitzplaner-map-layer'
+
+function getStoredLayer(): string {
+  return localStorage.getItem(MAP_LAYER_KEY) ?? LAYERS.osm.label
+}
+
+function getStoredMapPos(): { center: [number, number]; zoom: number } {
+  try {
+    const raw = localStorage.getItem(MAP_POS_KEY)
+    if (raw) {
+      const p = JSON.parse(raw)
+      if (typeof p.lat === 'number' && typeof p.lng === 'number' && typeof p.zoom === 'number') {
+        return { center: [p.lat, p.lng], zoom: p.zoom }
+      }
+    }
+  } catch {
+    // ignore
+  }
+  return { center: [47.8, 13.0], zoom: 13 } // Austria/Bavaria default
+}
+
+function MapPositionPersist() {
+  const map = useMapEvents({
+    moveend() {
+      const c = map.getCenter()
+      localStorage.setItem(MAP_POS_KEY, JSON.stringify({ lat: c.lat, lng: c.lng, zoom: map.getZoom() }))
+    },
+    zoomend() {
+      const c = map.getCenter()
+      localStorage.setItem(MAP_POS_KEY, JSON.stringify({ lat: c.lat, lng: c.lng, zoom: map.getZoom() }))
+    },
+    baselayerchange(e) {
+      localStorage.setItem(MAP_LAYER_KEY, e.name)
+    },
+  })
+  return null
+}
+
+
 function MapResizeHandler() {
   const map = useMap()
   const containerRef = useRef<HTMLElement | null>(null)
@@ -81,24 +121,27 @@ interface RevierMapProps {
 }
 
 export function RevierMap({ children, onMapClick, clickMode = false }: RevierMapProps) {
+  const { center, zoom } = getStoredMapPos()
+  const activeLayer = getStoredLayer()
   return (
     // absolute inset-0 fills the relatively-positioned parent reliably
     <div className={`absolute inset-0 ${clickMode ? 'cursor-crosshair' : ''}`}>
       <MapContainer
-        center={[51.1, 10.4]}
-        zoom={13}
+        center={center}
+        zoom={zoom}
         style={{ height: '100%', width: '100%' }}
         zoomControl={true}
       >
         <MapResizeHandler />
+        <MapPositionPersist />
         <LayersControl position="topright">
-          <LayersControl.BaseLayer checked name={LAYERS.osm.label}>
+          <LayersControl.BaseLayer checked={activeLayer === LAYERS.osm.label} name={LAYERS.osm.label}>
             <TileLayer url={LAYERS.osm.url} attribution={LAYERS.osm.attribution} maxZoom={LAYERS.osm.maxZoom} />
           </LayersControl.BaseLayer>
-          <LayersControl.BaseLayer name={LAYERS.satellite.label}>
+          <LayersControl.BaseLayer checked={activeLayer === LAYERS.satellite.label} name={LAYERS.satellite.label}>
             <TileLayer url={LAYERS.satellite.url} attribution={LAYERS.satellite.attribution} maxZoom={LAYERS.satellite.maxZoom} />
           </LayersControl.BaseLayer>
-          <LayersControl.BaseLayer name={LAYERS.topo.label}>
+          <LayersControl.BaseLayer checked={activeLayer === LAYERS.topo.label} name={LAYERS.topo.label}>
             <TileLayer url={LAYERS.topo.url} attribution={LAYERS.topo.attribution} maxZoom={LAYERS.topo.maxZoom} />
           </LayersControl.BaseLayer>
         </LayersControl>

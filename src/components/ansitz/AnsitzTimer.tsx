@@ -109,12 +109,12 @@ export function AnsitzTimer() {
 
       {/* Beobachtung bottom-sheet */}
       {showBeobachtung && (
-        <div className="fixed inset-0 z-50 flex items-end bg-black/40" onClick={() => setShowBeobachtung(false)}>
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center sm:justify-center bg-black/40" onClick={() => setShowBeobachtung(false)}>
           <div
-            className="w-full rounded-t-2xl bg-white px-4 pb-8 pt-4 max-h-[90vh] overflow-y-auto"
+            className="w-full rounded-t-2xl bg-white px-4 pb-24 pt-4 max-h-[90vh] overflow-y-auto sm:rounded-2xl sm:max-w-lg sm:pb-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mx-auto mb-3 h-1 w-12 rounded-full bg-gray-300" />
+            <div className="mx-auto mb-3 h-1 w-12 rounded-full bg-gray-300 sm:hidden" />
             <BeobachtungForm
               onSave={() => { setShowBeobachtung(false) }}
               onCancel={() => setShowBeobachtung(false)}
@@ -125,12 +125,12 @@ export function AnsitzTimer() {
 
       {/* Abschuss bottom-sheet */}
       {showAbschuss && (
-        <div className="fixed inset-0 z-50 flex items-end bg-black/40" onClick={() => setShowAbschuss(false)}>
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center sm:justify-center bg-black/40" onClick={() => setShowAbschuss(false)}>
           <div
-            className="w-full rounded-t-2xl bg-white px-4 pb-8 pt-4 max-h-[90vh] overflow-y-auto"
+            className="w-full rounded-t-2xl bg-white px-4 pb-24 pt-4 max-h-[90vh] overflow-y-auto sm:rounded-2xl sm:max-w-lg sm:pb-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mx-auto mb-3 h-1 w-12 rounded-full bg-gray-300" />
+            <div className="mx-auto mb-3 h-1 w-12 rounded-full bg-gray-300 sm:hidden" />
             <AbschussForm
               onSave={() => setShowAbschuss(false)}
               onCancel={() => setShowAbschuss(false)}

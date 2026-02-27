@@ -38,9 +38,14 @@ export function useEinrichtungen(): UseEinrichtungenResult {
         .eq('revier_id', revierId)
         .order('name')
       if (error) throw error
-      const items = data as Ansitzeinrichtung[]
-      await saveEinrichtungen(items)
-      setState({ einrichtungen: items, loading: false, error: null })
+      const remoteItems = data as Ansitzeinrichtung[]
+      // Merge: keep local-only items (id not in remote) that haven't synced yet
+      const cached = await getEinrichtungen(revierId).catch(() => [])
+      const remoteIds = new Set(remoteItems.map((i) => i.id))
+      const localOnly = cached.filter((i) => !remoteIds.has(i.id))
+      const merged = [...remoteItems, ...localOnly]
+      await saveEinrichtungen(merged)
+      setState({ einrichtungen: merged, loading: false, error: null })
     } catch {
       try {
         const cached = await getEinrichtungen(revierId)

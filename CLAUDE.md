@@ -137,3 +137,8 @@ Erreichbar unter `www.ansitzplaner.de` · `www.pirschplaner.de`.
 - Jagdzeiten und Wildarten sind revierspezifisch konfigurierbar
 - ML-Modell: initial serverseitig trainiert, später edge-computing via TensorFlow.js
 - Mondphasen und Sonnenauf-/-untergang sind für die Jagdplanung relevant
+
+# Bugfixes und Erweiterungen
+- Bugfixes und Erweiterungen in PROGRESS.md dokumentieren
+- Vor jedem Bugfix und Erweiterung bitte die PROGRESS.md prüfen und verstehen
+- Git commit nach jedem Fix / Erweiterung und Frage, ob gepusht werden soll
