@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router-dom'
-import { Map, BarChart3, Plus, List, Menu } from 'lucide-react'
+import { Map, BarChart3, Plus, Cloud, Menu } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const tabs = [
   { to: '/', icon: Map, label: 'Karte', exact: true },
   { to: '/statistiken', icon: BarChart3, label: 'Statistiken', exact: false },
   { to: '/ansitz', icon: Plus, label: 'Ansitz', exact: false, primary: true },
-  { to: '/liste', icon: List, label: 'Liste', exact: false },
+  { to: '/wetter', icon: Cloud, label: 'Wetter', exact: false },
   { to: '/menue', icon: Menu, label: 'Menü', exact: false },
 ]
 

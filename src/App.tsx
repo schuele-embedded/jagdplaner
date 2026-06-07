@@ -16,6 +16,7 @@ import { StatistikenPage } from '@/pages/StatistikenPage'
 import { AnsitzPage } from '@/pages/AnsitzPage'
 import { ListePage } from '@/pages/ListePage'
 import { MenuPage } from '@/pages/MenuPage'
+import { WetterPage } from '@/pages/WetterPage'
 import { ImpressumPage } from '@/pages/ImpressumPage'
 import { DatenschutzPage } from '@/pages/DatenschutzPage'
 import { CookieNotice } from '@/components/CookieNotice'
@@ -42,6 +43,7 @@ function AppShell() {
           <Route path="/ansitz" element={<AnsitzPage />} />
           <Route path="/ansitz/aktiv" element={<AnsitzPage />} />
           <Route path="/liste" element={<ListePage />} />
+          <Route path="/wetter" element={<WetterPage />} />
           <Route path="/menue" element={<MenuPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

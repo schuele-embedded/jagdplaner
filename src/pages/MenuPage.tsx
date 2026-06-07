@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { LogOut, User, Users, Map, Download } from 'lucide-react'
+import { LogOut, User, Users, Map, Download, List } from 'lucide-react'
 import { useUserStore } from '@/store/useUserStore'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { MitgliederVerwaltung } from '@/components/revier/MitgliederVerwaltung'
@@ -161,6 +161,21 @@ export function MenuPage() {
         </CardHeader>
         <CardContent>
           <MitgliederVerwaltung />
+        </CardContent>
+      </Card>
+
+      <Card className="p-0">
+        <CardContent className="p-0">
+          <Link
+            to="/liste"
+            className="flex w-full items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors rounded-xl"
+          >
+            <List className="h-5 w-5 text-muted-foreground" />
+            <div>
+              <p className="font-medium">Ansitz-Liste</p>
+              <p className="text-sm text-muted-foreground">Alle Ansitze &amp; Beobachtungen</p>
+            </div>
+          </Link>
         </CardContent>
       </Card>
 
