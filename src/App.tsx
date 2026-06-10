@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom'
+import { List } from 'lucide-react'
 import { useUserStore } from '@/store/useUserStore'
 import { useRevierStore } from '@/store/useRevierStore'
 import { registerSyncOnReconnect } from '@/lib/indexeddb'
@@ -30,7 +31,16 @@ function AppShell() {
 
       {/* Header */}
       <header className="sticky top-0 z-40 flex h-12 items-center justify-between border-b bg-background/95 px-3 backdrop-blur-sm">
-        <RevierWechsler />
+        <div className="flex items-center gap-1">
+          <RevierWechsler />
+          <Link
+            to="/liste"
+            aria-label="Ansitz-Liste"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted/50 transition-colors"
+          >
+            <List className="h-5 w-5" />
+          </Link>
+        </div>
         <span className="text-xs font-medium rounded-full bg-amber-100 text-amber-800 px-2 py-0.5">
           Beta&nbsp;v{__APP_VERSION__}
         </span>
