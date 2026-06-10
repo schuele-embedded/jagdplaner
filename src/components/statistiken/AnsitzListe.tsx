@@ -1,5 +1,6 @@
 import type { Ansitz } from '@/types'
 import { useEinrichtungen } from '@/hooks/useEinrichtungen'
+import { MONDPHASEN_LABEL } from '@/lib/mondphase'
 
 interface AnsitzListeProps {
   ansitze: Ansitz[]
@@ -155,7 +156,7 @@ function AnsitzDetail({ ansitz, einrichtungen }: { ansitz: Ansitz; einrichtungen
           <p className="text-xs font-medium text-gray-400 uppercase">Bedingungen</p>
           {b.temperatur_celsius != null && <p>🌡 {b.temperatur_celsius} °C</p>}
           {b.windstaerke_bft != null && <p>💨 {b.windstaerke_bft} Bft {b.windrichtung ?? ''}</p>}
-          {b.mondphase && <p>🌛 {b.mondphase}</p>}
+          {b.mondphase && <p>{MONDPHASEN_LABEL[b.mondphase]}</p>}
           {b.niederschlag && <p>🌧 {b.niederschlag}</p>}
         </div>
       )}

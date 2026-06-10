@@ -1,14 +1,6 @@
 import { useMemo } from 'react'
+import { MONDPHASEN_LABEL } from '@/lib/mondphase'
 import type { Ansitz, Mondphase } from '@/types'
-
-const MONDPHASEN_LABEL: Record<Mondphase, string> = {
-  Neumond: '🌑 Neumond',
-  zunehmend: '🌒 Zunehmend',
-  Halbmond_zunehmend: '🌓 Halbmond ↑',
-  Vollmond: '🌕 Vollmond',
-  abnehmend: '🌖 Abnehmend',
-  Halbmond_abnehmend: '🌗 Halbmond ↓',
-}
 
 interface MondphasenTabelleProps {
   ansitze: Ansitz[]

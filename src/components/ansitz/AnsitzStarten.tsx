@@ -4,7 +4,7 @@ import { useAnsitz } from '@/hooks/useAnsitz'
 import { useEinrichtungen } from '@/hooks/useEinrichtungen'
 import { useWeatherData } from '@/hooks/useWeatherData'
 import { useGeolocation } from '@/hooks/useGeolocation'
-import { getMoonPhase, getMoonIllumination, getSunTimes } from '@/lib/mondphase'
+import { getMoonPhase, getMoonIllumination, getSunTimes, MONDPHASEN_LABEL } from '@/lib/mondphase'
 import { niederschlagFromMm } from '@/lib/wetter'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -123,7 +123,7 @@ export function AnsitzStarten() {
             <span>🌡 {wetter.temperatur_celsius?.toFixed(1)} °C</span>
             <span>💨 {wetter.windstaerke_bft} Bft</span>
             <span>☁️ {wetter.bewoelkung_prozent} %</span>
-            <span>🌛 {moonPhase} ({moonPct}%)</span>
+            <span>{MONDPHASEN_LABEL[moonPhase]} ({moonPct}%)</span>
             {sunTimes && (
               <>
                 <span>🌅 {formatTime(sunTimes.sunrise)}</span>

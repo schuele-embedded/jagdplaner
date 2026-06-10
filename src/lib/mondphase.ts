@@ -3,6 +3,15 @@ import type { Mondphase } from '@/types'
 
 // ---- Moon phase ----------------------------------------------------------
 
+export const MONDPHASEN_LABEL: Record<Mondphase, string> = {
+  Neumond: '🌑 Neumond',
+  zunehmend: '🌒 Zunehmend',
+  Halbmond_zunehmend: '🌓 Halbmond ↑',
+  Vollmond: '🌕 Vollmond',
+  abnehmend: '🌖 Abnehmend',
+  Halbmond_abnehmend: '🌗 Halbmond ↓',
+}
+
 export function getMoonPhase(date: Date): Mondphase {
   const { phase } = SunCalc.getMoonIllumination(date)
   // phase: 0 = new moon, 0.25 = first quarter, 0.5 = full moon, 0.75 = last quarter

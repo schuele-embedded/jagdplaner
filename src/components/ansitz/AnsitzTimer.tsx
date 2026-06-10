@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useAnsitz } from '@/hooks/useAnsitz'
 import { useEinrichtungen } from '@/hooks/useEinrichtungen'
+import { MONDPHASEN_LABEL } from '@/lib/mondphase'
 import { BeobachtungForm } from './BeobachtungForm'
 import { AbschussForm } from './AbschussForm'
 import type { Wildart } from '@/types'
@@ -61,7 +62,7 @@ export function AnsitzTimer() {
         <div className="flex gap-4 overflow-x-auto bg-green-50 px-4 py-2 text-sm text-green-800">
           {b.temperatur_celsius != null && <span>🌡 {b.temperatur_celsius.toFixed(1)} °C</span>}
           {b.windstaerke_bft != null && <span>💨 {b.windstaerke_bft} Bft</span>}
-          {b.mondphase && <span>🌛 {b.mondphase}</span>}
+          {b.mondphase && <span>{MONDPHASEN_LABEL[b.mondphase]}</span>}
         </div>
       )}
 
