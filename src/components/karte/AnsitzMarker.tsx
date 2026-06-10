@@ -37,17 +37,19 @@ function typSvgPath(typ: EinrichtungTyp): string {
 function createIcon(typ: EinrichtungTyp, zustand: EinrichtungZustand): L.DivIcon {
   const color = ZUSTAND_COLOR[zustand]
   const svgPath = typSvgPath(typ)
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="${color}" stroke="white" stroke-width="1.5">
-    <circle cx="12" cy="12" r="12" fill="${color}" opacity="0.2"/>
-    <path d="${svgPath}" fill="${color}" stroke="white" stroke-width="0.5"/>
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,.4))">
+    <circle cx="18" cy="18" r="15.5" fill="white" stroke="${color}" stroke-width="3"/>
+    <g transform="translate(8 8) scale(0.833)">
+      <path d="${svgPath}" fill="#374151"/>
+    </g>
   </svg>`
 
   return L.divIcon({
     html: svg,
     className: '',
-    iconSize: [32, 32],
-    iconAnchor: [16, 16],
-    popupAnchor: [0, -18],
+    iconSize: [36, 36],
+    iconAnchor: [18, 18],
+    popupAnchor: [0, -20],
   })
 }
 
