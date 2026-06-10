@@ -126,8 +126,10 @@ export function AnsitzStarten() {
             <span>{MONDPHASEN_LABEL[moonPhase]} ({moonPct}%)</span>
             {sunTimes && (
               <>
+                <span>🌄 Dämmerung {formatTime(sunTimes.dawn)}</span>
                 <span>🌅 {formatTime(sunTimes.sunrise)}</span>
                 <span>🌇 {formatTime(sunTimes.sunset)}</span>
+                <span>🌆 Dämmerung {formatTime(sunTimes.dusk)}</span>
               </>
             )}
           </div>
