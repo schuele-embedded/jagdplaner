@@ -25,6 +25,7 @@ export function MitgliederVerwaltung() {
   const permissions = usePermissions()
 
   const [mitglieder, setMitglieder] = useState<RevierMitglied[]>([])
+  const [profile, setProfile] = useState<Map<string, string>>(new Map())
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [rolle, setRolle] = useState<Rolle>('jaeger')
@@ -43,7 +44,23 @@ export function MitgliederVerwaltung() {
         setMitglieder((data ?? []) as RevierMitglied[])
         setLoading(false)
       })
+    loadProfiles(revierId)
   }, [revierId])
+
+  // Name/E-Mail liegen in auth.users – via RPC (003_member_profiles.sql)
+  async function loadProfiles(rid: string) {
+    const { data } = await supabase.rpc('get_revier_member_profiles', { p_revier_id: rid })
+    if (!data) return
+    const map = new Map<string, string>()
+    for (const p of data as { user_id: string; name: string | null; email: string | null }[]) {
+      map.set(p.user_id, p.name || p.email || '')
+    }
+    setProfile(map)
+  }
+
+  function displayName(userId: string): string {
+    return profile.get(userId) || `${userId.slice(0, 8)}…`
+  }
 
   async function handleInvite() {
     if (!email || !revierId) return
@@ -78,6 +95,7 @@ export function MitgliederVerwaltung() {
       // Refresh list
       const { data } = await supabase.from('revier_mitglieder').select('*').eq('revier_id', revierId)
       setMitglieder((data ?? []) as RevierMitglied[])
+      loadProfiles(revierId)
     }
     setInviting(false)
   }
@@ -122,7 +140,7 @@ export function MitgliederVerwaltung() {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{m.user_id}</p>
+                  <p className="text-sm font-medium truncate">{displayName(m.user_id)}</p>
                   <p className="text-xs text-muted-foreground">{m.aktiv ? 'Aktiv' : 'Ausstehend'}</p>
                 </div>
 
