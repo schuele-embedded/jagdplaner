@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { LogOut, User, Users, Map, Download } from 'lucide-react'
+import { LogOut, User, Users, Map, Download, Bell } from 'lucide-react'
 import { useUserStore } from '@/store/useUserStore'
+import { isJagdAlertEnabled, setJagdAlertEnabled } from '@/lib/jagdAlert'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { MitgliederVerwaltung } from '@/components/revier/MitgliederVerwaltung'
 import { useEinrichtungen } from '@/hooks/useEinrichtungen'
@@ -62,6 +63,16 @@ export function MenuPage() {
   const { einrichtungen } = useEinrichtungen()
   const [preloadProgress, setPreloadProgress] = useState<{ done: number; total: number } | null>(null)
   const [preloadDone, setPreloadDone] = useState(false)
+  const [jagdAlert, setJagdAlert] = useState(isJagdAlertEnabled())
+
+  async function handleJagdAlertToggle() {
+    const next = !jagdAlert
+    if (next && 'Notification' in window && Notification.permission === 'default') {
+      await Notification.requestPermission()
+    }
+    setJagdAlertEnabled(next)
+    setJagdAlert(next)
+  }
 
   async function handlePreloadMap() {
     const urls = collectTileUrls(einrichtungen)
@@ -149,6 +160,38 @@ export function MenuPage() {
             <Download className="h-4 w-4" />
             Karte für Offline speichern
           </button>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="flex items-center gap-2 text-sm font-medium text-muted-foreground uppercase tracking-wide">
+            <Bell className="h-4 w-4" />
+            Benachrichtigungen
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="flex items-center gap-3">
+          <button
+            type="button"
+            role="switch"
+            aria-checked={jagdAlert}
+            onClick={handleJagdAlertToggle}
+            className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${
+              jagdAlert ? 'bg-green-600' : 'bg-gray-300'
+            }`}
+          >
+            <span
+              className={`absolute left-0 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
+                jagdAlert ? 'translate-x-[22px]' : 'translate-x-0.5'
+              }`}
+            />
+          </button>
+          <div>
+            <p className="text-sm font-medium">Gute Jagdbedingungen melden</p>
+            <p className="text-xs text-muted-foreground">
+              Beim App-Start wird die Vorhersage geprüft; ist morgen ein Top-Jagdtag, gibt es eine Meldung.
+            </p>
+          </div>
         </CardContent>
       </Card>
 

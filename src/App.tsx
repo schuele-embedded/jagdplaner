@@ -1,6 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom'
-import { List } from 'lucide-react'
+import { List, X } from 'lucide-react'
+import { checkJagdAlert, type JagdAlert } from '@/lib/jagdAlert'
 import { useUserStore } from '@/store/useUserStore'
 import { useRevierStore } from '@/store/useRevierStore'
 import { registerSyncOnReconnect } from '@/lib/indexeddb'
@@ -24,6 +25,19 @@ import { CookieNotice } from '@/components/CookieNotice'
 
 function AppShell() {
   const { reviere, loading } = useRevierStore()
+  const [jagdAlert, setJagdAlert] = useState<JagdAlert | null>(null)
+
+  // Beim App-Start: gute Bedingungen für morgen? (Opt-in, max. 1× pro Tag)
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        checkJagdAlert(pos.coords.latitude, pos.coords.longitude)
+          .then((alert) => { if (alert && !alert.notified) setJagdAlert(alert) })
+          .catch(() => {})
+      },
+      () => {}
+    )
+  }, [])
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -45,6 +59,17 @@ function AppShell() {
           Beta&nbsp;v{__APP_VERSION__}
         </span>
       </header>
+
+      {jagdAlert && (
+        <div className="flex items-center gap-2 bg-green-100 px-3 py-2 text-sm text-green-800">
+          <Link to="/wetter" className="flex-1" onClick={() => setJagdAlert(null)}>
+            🎯 Morgen gute Jagdbedingungen – Jagd-Score {jagdAlert.jagdScore}/100
+          </Link>
+          <button onClick={() => setJagdAlert(null)} aria-label="Schließen">
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      )}
 
       <main className="flex flex-1 flex-col pb-16">
         <Routes>
