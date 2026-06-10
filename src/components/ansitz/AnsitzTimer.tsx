@@ -83,6 +83,14 @@ export function AnsitzTimer() {
             ))}
           </div>
         )}
+        {activeAnsitz.abschuss && (
+          <div className="mt-3">
+            <p className="mb-2 text-xs font-medium uppercase text-gray-500">Abschuss</p>
+            <span className="inline-block rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700">
+              🎯 {activeAnsitz.abschuss.anzahl}× {activeAnsitz.abschuss.wildart}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Actions */}
@@ -100,7 +108,10 @@ export function AnsitzTimer() {
           🎯 Abschuss erfassen
         </button>
         <button
-          onClick={() => setShowEndeDialog(true)}
+          onClick={() => {
+            if (activeAnsitz.abschuss) setErfolg(true)
+            setShowEndeDialog(true)
+          }}
           className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gray-800 text-sm font-medium text-white hover:bg-gray-900"
         >
           Ansitz beenden

@@ -60,28 +60,42 @@ export function useAnsitz() {
         beobachtungen: store.observations,
       }
 
+      // ansitze table has no beobachtungen column – insert them separately
+      const { beobachtungen, ...ansitzRow } = finished
+
       try {
-        const { error } = await supabase.from('ansitze').insert(finished)
+        const { error } = await supabase.from('ansitze').insert(ansitzRow)
         if (error) throw error
-        // Also upsert observations
-        if (finished.beobachtungen.length > 0) {
-          await supabase.from('beobachtungen').insert(finished.beobachtungen)
-        }
       } catch {
-        await saveAnsitz(finished)
         await addToSyncQueue({
           table: 'ansitze',
           operation: 'INSERT',
-          payload: finished as unknown as Record<string, unknown>,
+          payload: ansitzRow as unknown as Record<string, unknown>,
         })
-        for (const obs of finished.beobachtungen) {
-          await addToSyncQueue({
-            table: 'beobachtungen',
-            operation: 'INSERT',
-            payload: obs as unknown as Record<string, unknown>,
-          })
+      }
+
+      // GEOGRAPHY column expects WKT, not {lat,lng}
+      const obsRows = beobachtungen.map((obs) => ({
+        ...obs,
+        position: obs.position ? `POINT(${obs.position.lng} ${obs.position.lat})` : null,
+      }))
+      if (obsRows.length > 0) {
+        try {
+          const { error } = await supabase.from('beobachtungen').insert(obsRows)
+          if (error) throw error
+        } catch {
+          for (const obs of obsRows) {
+            await addToSyncQueue({
+              table: 'beobachtungen',
+              operation: 'INSERT',
+              payload: obs as unknown as Record<string, unknown>,
+            })
+          }
         }
       }
+
+      // keep local cache consistent regardless of remote success
+      await saveAnsitz(finished)
 
       store.reset()
       navigate('/liste')
