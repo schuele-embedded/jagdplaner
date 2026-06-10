@@ -478,5 +478,12 @@ Logik: Berechnet Scores stündlich 0–23 Uhr, findet das Maximum → "Beste Zei
 - ✅ Beobachtung/Abschuss erfassen: Sheet geht über ganze Breite, Speichern-Button durch Nav-Bar verborgen → `pb-24` statt `pb-8` im Bottom-Sheet; Desktop: zentriertes Modal (`sm:items-center sm:max-w-lg`); Drag-Handle auf Desktop ausgeblendet
 - ✅ Wildart-/Verhalten-Dropdown in Beobachtung & Abschuss öffnet nicht → `SelectContent className="z-[9999]"` in BeobachtungForm und AbschussForm
 - ✅ Gewählter Kartenlayer (Satellit/Topographie) wird nach Tab-Wechsel nicht gespeichert → `baselayerchange`-Event schreibt Layer-Name in `localStorage` (`ansitzplaner-map-layer`); `checked`-Prop auf `LayersControl.BaseLayer` wird beim Rendern aus localStorage gelesen
+- ✅ Ansitz beenden + Speichern: Eintrag nicht vorhanden / Abschuss nach Speichern weg → `finalize()` schickte das Feld `beobachtungen` mit in den `ansitze`-Insert (Spalte existiert nicht), Insert schlug still fehl; Sync-Queue hat keinen Processor; Liste lud nur von Supabase. Fix: `beobachtungen` aus Payload entfernt, Beobachtungen separat inserten (Position als WKT), `useAnsitze` mergt Remote + lokal-only Einträge (Pattern aus `useEinrichtungen`); Abschuss-Badge im AnsitzTimer + Erfolg=Ja vorbelegt bei Abschuss
+- ✅ Mondphase „Halbmond_abnehmend" mit Unterstrich → `MONDPHASEN_LABEL` nach `lib/mondphase.ts` extrahiert und in AnsitzTimer, AnsitzStarten, AnsitzListe verwendet
+- ✅ Dämmerungszeiten fehlen bei Bedingungen (Ansitz starten) → `sunTimes.dawn`/`dusk` (bereits berechnet) im Bedingungen-Grid ergänzt
+- ✅ Schieber-Knopf „Nachsuche nötig" nach rechts versetzt → Knob-Span ohne `left-0`, Position war undefiniert; `left-0` + `translate-x-[22px]` im An-Zustand
+- ✅ Reviermitglieder zeigen UUID statt Namen → Namen liegen in `auth.users`; neue SECURITY-DEFINER-Funktion `get_revier_member_profiles` (**Migration 003 – manuell im Supabase SQL Editor ausführen!**), MitgliederVerwaltung lädt Name/E-Mail per RPC
+- ✅ Karten-Symbole der Einrichtungen schlecht sichtbar → Marker neu: weißer Kreis, 3px-Ring in Zustandsfarbe, dunkler Glyph, Drop-Shadow (36px)
+- ✅ Liste aus Menü in Kopfzeile neben Revier verschoben → Listen-Icon im Header, Menü-Karte entfernt
+- ✅ Meldung bei guten Jagdbedingungen 1 Tag vorher → `lib/jagdAlert.ts`: Check beim App-Start (Jagd-Score ≥ 70 für morgen), System-Notification oder In-App-Banner, max. 1×/Tag, Opt-in-Toggle im Menü. Bewusst ohne Server-Push (kein Backend-Cron auf Shared Hosting)
 
-- Passwort vergessen: Klickt man auf den link in der email, die von supabase kommt, werde ich auf localhost:3000 weitergeleitet oder automatisch angemeldet, statt dass das passwort zurückgesetzt werden kann.
