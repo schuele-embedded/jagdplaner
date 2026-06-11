@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { supabase } from '@/lib/supabase'
-import type { Revier } from '@/types'
+import type { Revier, RevierMitglied } from '@/types'
 import type { RevierFormValues } from '@/lib/validierung'
 
 const ACTIVE_REVIER_KEY = 'ansitzplaner_active_revier_id'
@@ -8,6 +8,8 @@ const ACTIVE_REVIER_KEY = 'ansitzplaner_active_revier_id'
 interface RevierState {
   reviere: Revier[]
   activeRevier: Revier | null
+  /** Eigene Mitgliedschaft je Revier (revier_id → RevierMitglied) */
+  mitgliedschaften: Record<string, RevierMitglied>
   loading: boolean
   error: string | null
 }
@@ -23,6 +25,7 @@ interface RevierActions {
 export const useRevierStore = create<RevierState & RevierActions>((set, get) => ({
   reviere: [],
   activeRevier: null,
+  mitgliedschaften: {},
   loading: false,
   error: null,
 
@@ -43,7 +46,21 @@ export const useRevierStore = create<RevierState & RevierActions>((set, get) => 
     const activeRevier =
       reviere.find((r) => r.id === savedId) ?? reviere[0] ?? null
 
-    set({ reviere, activeRevier, loading: false })
+    // Eigene Mitgliedschaften für Rollen/Berechtigungen (usePermissions)
+    const { data: { user } } = await supabase.auth.getUser()
+    let mitgliedschaften: Record<string, RevierMitglied> = get().mitgliedschaften
+    if (user) {
+      const { data: rows } = await supabase
+        .from('revier_mitglieder')
+        .select('*')
+        .eq('user_id', user.id)
+      if (rows) {
+        mitgliedschaften = {}
+        for (const m of rows as RevierMitglied[]) mitgliedschaften[m.revier_id] = m
+      }
+    }
+
+    set({ reviere, activeRevier, mitgliedschaften, loading: false })
   },
 
   setActiveRevier: (id) => {

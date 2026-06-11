@@ -24,17 +24,17 @@ export function usePermissions(): Berechtigungen & {
   canEditRevier: () => boolean
 } {
   const activeRevier = useRevierStore((s) => s.activeRevier)
+  const mitgliedschaften = useRevierStore((s) => s.mitgliedschaften)
   const user = useUserStore((s) => s.user)
 
   const permissions = useMemo<Berechtigungen>(() => {
     if (!activeRevier || !user) return NO_PERMISSIONS
     // Eigentümer immer voll berechtigt
     if (activeRevier.eigentuemer_id === user.id) return ROLE_PRESETS.eigentuemer
-    // Für andere Mitglieder: Supabase gibt revier_mitglieder zurück,
-    // aber wir haben sie nicht im Store – daher Fallback auf jaeger preset.
-    // Nach TASK-009 wird ein dedizierter Mitglieder-Store diesen Wert liefern.
-    return ROLE_PRESETS.jaeger
-  }, [activeRevier, user])
+    const mitglied = mitgliedschaften[activeRevier.id]
+    if (!mitglied || !mitglied.aktiv) return NO_PERMISSIONS
+    return { ...ROLE_PRESETS[mitglied.rolle], ...mitglied.berechtigungen }
+  }, [activeRevier, mitgliedschaften, user])
 
   return {
     ...permissions,
