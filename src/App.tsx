@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom'
+import { Toaster, toast } from 'sonner'
 import { List, X } from 'lucide-react'
 import { checkJagdAlert, type JagdAlert } from '@/lib/jagdAlert'
 import { useUserStore } from '@/store/useUserStore'
@@ -91,6 +92,7 @@ function AppShell() {
       {!loading && <OnboardingModal open={reviere.length === 0} />}
 
       <CookieNotice />
+      <Toaster position="top-center" richColors />
     </div>
   )
 }
@@ -102,7 +104,7 @@ export default function App() {
 
   useEffect(() => {
     initialize()
-    const unregister = registerSyncOnReconnect()
+    const unregister = registerSyncOnReconnect((msg) => toast.info(msg))
     return unregister
   }, [initialize])
 
@@ -114,11 +116,11 @@ export default function App() {
   // damit z. B. neue Mitgliedschaften ohne Ab-/Anmelden sichtbar werden
   useEffect(() => {
     if (!user) return
-    syncPendingOperations()
+    syncPendingOperations((msg) => toast.info(msg))
     const onVisible = () => {
       if (document.visibilityState === 'visible') {
         loadReviere()
-        syncPendingOperations()
+        syncPendingOperations((msg) => toast.info(msg))
       }
     }
     document.addEventListener('visibilitychange', onVisible)

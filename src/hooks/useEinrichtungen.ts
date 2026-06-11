@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
 import { saveEinrichtungen, getEinrichtungen, addToSyncQueue } from '@/lib/indexeddb'
 import { toWkt, parsePosition } from '@/lib/geo'
@@ -125,6 +126,7 @@ export function useEinrichtungen(): UseEinrichtungenResult {
   }
 
   async function remove(id: string): Promise<void> {
+    const removed = state.einrichtungen.find((e) => e.id === id)
     setState((s) => {
       const updated = s.einrichtungen.filter((e) => e.id !== id)
       saveEinrichtungen(updated)
@@ -134,7 +136,19 @@ export function useEinrichtungen(): UseEinrichtungenResult {
     try {
       const { error } = await supabase.from('ansitzeinrichtungen').delete().eq('id', id)
       if (error) throw error
-    } catch {
+    } catch (err) {
+      // FK RESTRICT: Einrichtung hat erfasste Ansitze – löschen unmöglich
+      if (err instanceof Object && 'code' in err && (err as { code: string }).code === '23503') {
+        toast.error('Einrichtung kann nicht gelöscht werden – es sind Ansitze dafür erfasst.')
+        if (removed) {
+          setState((s) => {
+            const updated = [...s.einrichtungen, removed]
+            saveEinrichtungen(updated)
+            return { ...s, einrichtungen: updated }
+          })
+        }
+        return
+      }
       await addToSyncQueue({ table: 'ansitzeinrichtungen', operation: 'DELETE', payload: { id } })
     }
   }

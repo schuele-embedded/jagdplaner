@@ -486,6 +486,7 @@ Logik: Berechnet Scores stündlich 0–23 Uhr, findet das Maximum → "Beste Zei
 - ✅ Karten-Symbole der Einrichtungen schlecht sichtbar → Marker neu: weißer Kreis, 3px-Ring in Zustandsfarbe, dunkler Glyph, Drop-Shadow (36px)
 - ✅ Liste aus Menü in Kopfzeile neben Revier verschoben → Listen-Icon im Header, Menü-Karte entfernt
 - ✅ Meldung bei guten Jagdbedingungen 1 Tag vorher → `lib/jagdAlert.ts`: Check beim App-Start (Jagd-Score ≥ 70 für morgen), System-Notification oder In-App-Banner, max. 1×/Tag, Opt-in-Toggle im Menü. Bewusst ohne Server-Push (kein Backend-Cron auf Shared Hosting)
+- ✅ Kein Fehler-Feedback (Toasts) → sonner integriert; Sync-Konflikte melden sich per Toast; Einrichtung-Löschen mit erfassten Ansitzen (FK 23503) zeigt Fehlermeldung und stellt den Eintrag wieder her statt still zu scheitern
 - ✅ usePermissions ignorierte echte Rollen (jeder Nicht-Eigentümer bekam jaeger-Preset) → `loadReviere()` lädt die eigenen `revier_mitglieder`-Zeilen in den Store (`mitgliedschaften`); `usePermissions` nutzt Rolle + gespeicherte Berechtigungen daraus
 - ✅ Passwort-Reset-Link führte ins Leere → `redirectTo` zeigte auf nicht existierende Route `/passwort-neu`. Fix: `PasswortNeuPage.tsx` mit `auth.updateUser({password})` + Route in App.tsx. **Manuell nötig: Redirect-URL im Supabase-Dashboard whitelisten**
 - ✅ Neues Revier nach Einladung erst nach Ab-/Anmelden sichtbar → `loadReviere()` lief nur im Login-Effect. Fix: App.tsx ruft `loadReviere()` + `syncPendingOperations()` zusätzlich beim App-Start und bei `visibilitychange` (Resume) auf
