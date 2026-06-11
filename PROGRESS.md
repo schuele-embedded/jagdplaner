@@ -486,4 +486,5 @@ Logik: Berechnet Scores stündlich 0–23 Uhr, findet das Maximum → "Beste Zei
 - ✅ Karten-Symbole der Einrichtungen schlecht sichtbar → Marker neu: weißer Kreis, 3px-Ring in Zustandsfarbe, dunkler Glyph, Drop-Shadow (36px)
 - ✅ Liste aus Menü in Kopfzeile neben Revier verschoben → Listen-Icon im Header, Menü-Karte entfernt
 - ✅ Meldung bei guten Jagdbedingungen 1 Tag vorher → `lib/jagdAlert.ts`: Check beim App-Start (Jagd-Score ≥ 70 für morgen), System-Notification oder In-App-Banner, max. 1×/Tag, Opt-in-Toggle im Menü. Bewusst ohne Server-Push (kein Backend-Cron auf Shared Hosting)
+- ✅ Eingeladene Mitglieder sehen Einrichtungen nicht → `{lat,lng}` wurde unverändert in die `GEOGRAPHY`-Spalte geschickt, Insert schlug still fehl, Einrichtungen blieben in der IndexedDB des Erstellers. Fix: `lib/geo.ts` mit `toWkt()` (Schreiben) und `parsePosition()` (liest WKB-Hex/GeoJSON/WKT/{lat,lng}; per Testvektoren validiert); eingebunden in useEinrichtungen, useAnsitz, useAnsitze; `syncPendingOperations()` repariert hängende Alt-Payloads (Position → WKT, `beobachtungen`-Feld entfernt)
 

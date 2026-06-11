@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
 import { saveAnsitz, addToSyncQueue } from '@/lib/indexeddb'
+import { toWkt } from '@/lib/geo'
 import { useAnsitzStore } from '@/store/useAnsitzStore'
 import { useUserStore } from '@/store/useUserStore'
 import { useRevier } from '@/hooks/useRevier'
@@ -77,7 +78,7 @@ export function useAnsitz() {
       // GEOGRAPHY column expects WKT, not {lat,lng}
       const obsRows = beobachtungen.map((obs) => ({
         ...obs,
-        position: obs.position ? `POINT(${obs.position.lng} ${obs.position.lat})` : null,
+        position: obs.position ? toWkt(obs.position) : null,
       }))
       if (obsRows.length > 0) {
         try {

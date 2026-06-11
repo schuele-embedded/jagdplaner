@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { getAllAnsitze } from '@/lib/indexeddb'
+import { parsePosition } from '@/lib/geo'
 import { useRevier } from '@/hooks/useRevier'
 import type { Ansitz, Beobachtung } from '@/types'
 
@@ -30,7 +31,8 @@ export function useAnsitze(): UseAnsitzeState {
         .select('*')
         .eq('revier_id', revierId)
       const obsByAnsitz = new Map<string, Beobachtung[]>()
-      for (const obs of (obsData ?? []) as Beobachtung[]) {
+      for (const raw of (obsData ?? []) as Beobachtung[]) {
+        const obs = { ...raw, position: parsePosition(raw.position) }
         const list = obsByAnsitz.get(obs.ansitz_id) ?? []
         list.push(obs)
         obsByAnsitz.set(obs.ansitz_id, list)

@@ -1,8 +1,18 @@
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { saveEinrichtungen, getEinrichtungen, addToSyncQueue } from '@/lib/indexeddb'
+import { toWkt, parsePosition } from '@/lib/geo'
 import { useRevier } from '@/hooks/useRevier'
 import type { Ansitzeinrichtung } from '@/types'
+
+// GEOGRAPHY column: serialize {lat,lng} → WKT on write, WKB hex → {lat,lng} on read
+function toRow(data: Partial<Ansitzeinrichtung>): Record<string, unknown> {
+  return data.position ? { ...data, position: toWkt(data.position) } : { ...data }
+}
+
+function fromRow(row: Ansitzeinrichtung): Ansitzeinrichtung {
+  return { ...row, position: parsePosition(row.position) ?? row.position }
+}
 
 interface UseEinrichtungenState {
   einrichtungen: Ansitzeinrichtung[]
@@ -38,7 +48,7 @@ export function useEinrichtungen(): UseEinrichtungenResult {
         .eq('revier_id', revierId)
         .order('name')
       if (error) throw error
-      const remoteItems = data as Ansitzeinrichtung[]
+      const remoteItems = (data as Ansitzeinrichtung[]).map(fromRow)
       // Merge: keep local-only items (id not in remote) that haven't synced yet
       const cached = await getEinrichtungen(revierId).catch(() => [])
       const remoteIds = new Set(remoteItems.map((i) => i.id))
@@ -70,11 +80,11 @@ export function useEinrichtungen(): UseEinrichtungenResult {
     try {
       const { data: inserted, error } = await supabase
         .from('ansitzeinrichtungen')
-        .insert({ ...data })
+        .insert(toRow(data))
         .select()
         .single()
       if (error) throw error
-      const created = inserted as Ansitzeinrichtung
+      const created = fromRow(inserted as Ansitzeinrichtung)
       setState((s) => {
         const updated = s.einrichtungen.map((e) => (e.id === optimistic.id ? created : e))
         saveEinrichtungen(updated)
@@ -103,7 +113,7 @@ export function useEinrichtungen(): UseEinrichtungenResult {
     })
 
     try {
-      const { error } = await supabase.from('ansitzeinrichtungen').update(data).eq('id', id)
+      const { error } = await supabase.from('ansitzeinrichtungen').update(toRow(data)).eq('id', id)
       if (error) throw error
     } catch {
       await addToSyncQueue({

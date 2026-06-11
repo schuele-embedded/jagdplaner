@@ -132,6 +132,20 @@ export async function removeSyncOperation(id: string): Promise<void> {
 
 // ---- Sync ----------------------------------------------------------------
 
+// Repairs legacy queue payloads that Postgres rejects: {lat,lng} positions
+// (GEOGRAPHY expects WKT) and the beobachtungen field on ansitze rows
+function sanitizePayload(table: string, payload: Record<string, unknown>): Record<string, unknown> {
+  const result = { ...payload }
+  if (table === 'ansitze') delete result.beobachtungen
+  if (table === 'ansitzeinrichtungen' || table === 'beobachtungen') {
+    const pos = result.position as { lat?: unknown; lng?: unknown } | null | undefined
+    if (pos && typeof pos === 'object' && typeof pos.lat === 'number' && typeof pos.lng === 'number') {
+      result.position = `POINT(${pos.lng} ${pos.lat})`
+    }
+  }
+  return result
+}
+
 export async function syncPendingOperations(
   onConflict?: (msg: string) => void
 ): Promise<void> {
@@ -142,7 +156,7 @@ export async function syncPendingOperations(
   for (const op of pending) {
     try {
       if (op.operation === 'INSERT' || op.operation === 'UPDATE') {
-        const { error } = await supabase.from(op.table).upsert(op.payload)
+        const { error } = await supabase.from(op.table).upsert(sanitizePayload(op.table, op.payload))
         if (error) throw error
       } else if (op.operation === 'DELETE') {
         const { error } = await supabase.from(op.table).delete().eq('id', op.payload.id)
@@ -153,7 +167,7 @@ export async function syncPendingOperations(
       const isConflict = err instanceof Object && 'code' in err && (err as { code: string }).code === '23505'
       if (isConflict) {
         // Last-write-wins: force upsert and notify user
-        await supabase.from(op.table).upsert(op.payload)
+        await supabase.from(op.table).upsert(sanitizePayload(op.table, op.payload))
         await removeSyncOperation(op.id)
         onConflict?.('Daten wurden aktualisiert (Konflikt aufgelöst).')
       }

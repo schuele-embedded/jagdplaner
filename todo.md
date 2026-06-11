@@ -6,7 +6,7 @@
 ## Nutzer-Reports
 
 - [ ] **Einladung: neues Revier erst nach Ab-/Anmelden sichtbar** — Ursache: `loadReviere()` läuft nur beim Login (`user`-Effect in `App.tsx`); kein Refresh bei App-Resume. Fix: `loadReviere()` zusätzlich bei `visibilitychange`/App-Fokus aufrufen, optional Pull-to-Refresh.
-- [ ] **Eingeladener Jäger sieht Reviereinrichtungen nicht** — wahrscheinliche Ursache: `useEinrichtungen.create()` sendet `position: {lat,lng}` in die `GEOGRAPHY(POINT)`-Spalte (PostgREST erwartet WKT/GeoJSON) → Insert schlägt still fehl, Einrichtungen liegen nur in der IndexedDB des Erstellers und werden nie geteilt. Fix: Insert/Update als WKT `POINT(lng lat)` serialisieren, beim SELECT zurückkonvertieren (PostgREST liefert WKB-Hex; z. B. via View/`ST_AsGeoJSON` oder Client-Parsing); hängende Sync-Queue-Altlasten bereinigen. Danach in Supabase prüfen, ob Einrichtungen ankommen.
+- [x] **Eingeladener Jäger sieht Reviereinrichtungen nicht** — Ursache bestätigt: `position: {lat,lng}` in `GEOGRAPHY`-Spalte. Fix: `lib/geo.ts` (WKT-Serialisierung + WKB-Hex-Parser), in useEinrichtungen/useAnsitz/useAnsitze eingebunden, Sync-Queue-Altlasten werden beim Sync repariert. **Nachprüfen: Einrichtung anlegen → erscheint sie in Supabase-Tabelle und beim zweiten Mitglied?**
 - [ ] **Supabase-E-Mails an AnsitzPlaner anpassen** — Supabase Dashboard → Auth → Email Templates (Absendername, Betreff, deutsche Texte, AnsitzPlaner-Branding); Site-URL/Redirect-URLs auf `https://www.ansitzplaner.de` prüfen.
 - [ ] **Wetter über den Tag verteilt (morgens/mittags/abends)** — `fetchWeeklyForecast()` nutzt nur die Daily-API von Open-Meteo. Erweiterung: Hourly-Forecast holen und je Tag in 3 Slots (Früh/Mittag/Abend) mit eigenem Jagd-Score aggregieren; Anzeige in `WetterPlanung.tsx`.
 
