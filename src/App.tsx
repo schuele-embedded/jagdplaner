@@ -5,6 +5,7 @@ import { List, X } from 'lucide-react'
 import { checkJagdAlert, type JagdAlert } from '@/lib/jagdAlert'
 import { useUserStore } from '@/store/useUserStore'
 import { useRevierStore } from '@/store/useRevierStore'
+import { useAnsitzStore } from '@/store/useAnsitzStore'
 import { registerSyncOnReconnect, syncPendingOperations } from '@/lib/indexeddb'
 import { AuthGuard } from '@/components/ui/AuthGuard'
 import { BottomNav } from '@/components/ui/BottomNav'
@@ -28,6 +29,16 @@ import { CookieNotice } from '@/components/CookieNotice'
 function AppShell() {
   const { reviere, loading } = useRevierStore()
   const [jagdAlert, setJagdAlert] = useState<JagdAlert | null>(null)
+
+  // Verwaisten aktiven Ansitz verwerfen (z. B. nach Crash); persistierter
+  // Store würde ihn sonst beliebig lange als "laufend" wiederherstellen
+  useEffect(() => {
+    const { activeAnsitz, reset } = useAnsitzStore.getState()
+    if (activeAnsitz && Date.now() - new Date(activeAnsitz.beginn).getTime() > 24 * 60 * 60 * 1000) {
+      reset()
+      toast.info('Ein nicht beendeter Ansitz (älter als 24 h) wurde verworfen.')
+    }
+  }, [])
 
   // Beim App-Start: gute Bedingungen für morgen? (Opt-in, max. 1× pro Tag)
   useEffect(() => {

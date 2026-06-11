@@ -486,6 +486,7 @@ Logik: Berechnet Scores stündlich 0–23 Uhr, findet das Maximum → "Beste Zei
 - ✅ Karten-Symbole der Einrichtungen schlecht sichtbar → Marker neu: weißer Kreis, 3px-Ring in Zustandsfarbe, dunkler Glyph, Drop-Shadow (36px)
 - ✅ Liste aus Menü in Kopfzeile neben Revier verschoben → Listen-Icon im Header, Menü-Karte entfernt
 - ✅ Meldung bei guten Jagdbedingungen 1 Tag vorher → `lib/jagdAlert.ts`: Check beim App-Start (Jagd-Score ≥ 70 für morgen), System-Notification oder In-App-Banner, max. 1×/Tag, Opt-in-Toggle im Menü. Bewusst ohne Server-Push (kein Backend-Cron auf Shared Hosting)
+- ✅ Persistierter „aktiver Ansitz" überlebte Crash/Neustart beliebig lange → beim App-Start werden aktive Ansitze älter als 24 h verworfen (Toast-Hinweis)
 - ✅ Sync-Queue ohne Retry-Begrenzung/Fehlerbehandlung → permanente DB-Fehler (23503/42501/23514) werden aussortiert, transiente Fehler nach 5 Versuchen verworfen (lokale Kopie bleibt in IndexedDB), Nutzer-Feedback per Toast; Sync läuft jetzt auch bei App-Start/Resume
 - ✅ Kein Fehler-Feedback (Toasts) → sonner integriert; Sync-Konflikte melden sich per Toast; Einrichtung-Löschen mit erfassten Ansitzen (FK 23503) zeigt Fehlermeldung und stellt den Eintrag wieder her statt still zu scheitern
 - ✅ usePermissions ignorierte echte Rollen (jeder Nicht-Eigentümer bekam jaeger-Preset) → `loadReviere()` lädt die eigenen `revier_mitglieder`-Zeilen in den Store (`mitgliedschaften`); `usePermissions` nutzt Rolle + gespeicherte Berechtigungen daraus

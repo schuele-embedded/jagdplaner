@@ -22,7 +22,7 @@
 - [x] **Sync-Queue läuft nur beim `online`-Event** — Fix: Sync zusätzlich beim App-Start und App-Resume; Payload-Altlasten werden repariert (`sanitizePayload`); permanente Fehler (FK 23503, RLS 42501, Check 23514) werden aussortiert statt endlos wiederholt; transiente Fehler max. 5 Versuche; Nutzer-Feedback per Toast. Lokale Daten bleiben dabei in der IndexedDB erhalten.
 - [x] **Einrichtung löschen mit vorhandenen Ansitzen scheitert unsichtbar** — Fix: FK-Fehler 23503 wird erkannt, Einrichtung wiederhergestellt und Toast „kann nicht gelöscht werden – Ansitze erfasst" angezeigt.
 - [x] **Kein Fehlermelde-/Toast-System** — Fix: sonner integriert (`<Toaster>` in AppShell); Sync-Konflikte und FK-Löschfehler melden sich jetzt per Toast. Weitere Pfade können `toast.error()` nutzen.
-- [ ] **Persistierter aktiver Ansitz ohne Verfallszeit** — `useAnsitzStore` (localStorage) stellt nach Crash/Tagen einen „laufenden" Ansitz wieder her. Fix: beim App-Start Ansitze älter als ~24 h verwerfen oder Dialog „Ansitz fortsetzen/verwerfen?".
+- [x] **Persistierter aktiver Ansitz ohne Verfallszeit** — Fix: beim App-Start werden aktive Ansitze älter als 24 h verworfen (Toast-Hinweis).
 
 ## Mittel
 
