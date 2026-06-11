@@ -4,7 +4,7 @@ import { List, X } from 'lucide-react'
 import { checkJagdAlert, type JagdAlert } from '@/lib/jagdAlert'
 import { useUserStore } from '@/store/useUserStore'
 import { useRevierStore } from '@/store/useRevierStore'
-import { registerSyncOnReconnect } from '@/lib/indexeddb'
+import { registerSyncOnReconnect, syncPendingOperations } from '@/lib/indexeddb'
 import { AuthGuard } from '@/components/ui/AuthGuard'
 import { BottomNav } from '@/components/ui/BottomNav'
 import { OfflineIndicator } from '@/components/ui/OfflineIndicator'
@@ -107,6 +107,21 @@ export default function App() {
 
   useEffect(() => {
     if (user) loadReviere()
+  }, [user, loadReviere])
+
+  // Reviere & Sync auch beim App-Resume aktualisieren (nicht nur beim Login),
+  // damit z. B. neue Mitgliedschaften ohne Ab-/Anmelden sichtbar werden
+  useEffect(() => {
+    if (!user) return
+    syncPendingOperations()
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') {
+        loadReviere()
+        syncPendingOperations()
+      }
+    }
+    document.addEventListener('visibilitychange', onVisible)
+    return () => document.removeEventListener('visibilitychange', onVisible)
   }, [user, loadReviere])
 
   return (
