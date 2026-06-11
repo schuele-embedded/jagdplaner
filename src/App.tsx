@@ -13,6 +13,7 @@ import { OnboardingModal } from '@/components/revier/OnboardingModal'
 import { LoginPage } from '@/pages/LoginPage'
 import { RegistrierungPage } from '@/pages/RegistrierungPage'
 import { PasswortResetPage } from '@/pages/PasswortResetPage'
+import { PasswortNeuPage } from '@/pages/PasswortNeuPage'
 import { KartePage } from '@/pages/KartePage'
 import { StatistikenPage } from '@/pages/StatistikenPage'
 import { AnsitzPage } from '@/pages/AnsitzPage'
@@ -131,6 +132,7 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registrierung" element={<RegistrierungPage />} />
         <Route path="/passwort-reset" element={<PasswortResetPage />} />
+        <Route path="/passwort-neu" element={<PasswortNeuPage />} />
         <Route path="/impressum" element={<ImpressumPage />} />
         <Route path="/datenschutz" element={<DatenschutzPage />} />
 

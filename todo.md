@@ -13,7 +13,7 @@
 ## Kritisch
 
 - [ ] **`.env` mit Supabase-URL und Anon-Key ist im Git committed** (Commit b0b6c30; `.gitignore` deckt nur `.env.local` ab). Fix: Anon-Key im Supabase-Dashboard rotieren, `.env` in `.gitignore` aufnehmen + `git rm --cached .env`, Historie mit `git-filter-repo` bereinigen (Force-Push abstimmen).
-- [ ] **Passwort-Reset führt ins Leere** — `PasswortResetPage.tsx:31` setzt `redirectTo: /passwort-neu`, diese Route existiert nicht; Recovery-Link loggt den Nutzer nur ein, Passwort kann nicht geändert werden. Fix: Route `/passwort-neu` mit `supabase.auth.updateUser({ password })` bauen; Redirect-URL im Supabase-Dashboard whitelisten.
+- [x] **Passwort-Reset führt ins Leere** — Fix: neue Route `/passwort-neu` (`PasswortNeuPage.tsx`) mit `supabase.auth.updateUser({ password })`. **Manuell: `https://www.ansitzplaner.de/passwort-neu` im Supabase-Dashboard unter Auth → URL Configuration → Redirect URLs eintragen.**
 - [ ] **Rollen/Berechtigungen werden clientseitig ignoriert** — `usePermissions.ts` gibt jedem Nicht-Eigentümer pauschal das `jaeger`-Preset; die echte Rolle aus `revier_mitglieder` wird nie geladen. Ein „Gast" sieht UI-Funktionen, die RLS dann stumm blockt. Fix: Mitglieds-Datensatz des aktuellen Users je aktivem Revier laden und `rolle`/`berechtigungen` daraus verwenden.
 - [ ] **Foto-Aufnahme komplett funktionslos** — `AbschussForm.tsx` (file-input ohne `onChange`), `BeobachtungForm.tsx` (`fotos: []` hardcoded), `EinrichtungForm.tsx` (kein Upload-UI). `fotos` wird nirgends befüllt/hochgeladen. Fix: Foto-Konzept entscheiden (Supabase Storage + Pfade in `fotos`, Offline-Queue) oder Buttons entfernen, solange das Feature fehlt.
 
