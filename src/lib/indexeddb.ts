@@ -13,6 +13,7 @@ export interface SyncOperation {
   operation: 'INSERT' | 'UPDATE' | 'DELETE'
   payload: Record<string, unknown>
   created_at: string
+  retries?: number
 }
 
 type AnsitzPlanerDB = {
@@ -164,14 +165,30 @@ export async function syncPendingOperations(
       }
       await removeSyncOperation(op.id)
     } catch (err) {
-      const isConflict = err instanceof Object && 'code' in err && (err as { code: string }).code === '23505'
-      if (isConflict) {
+      const code = err instanceof Object && 'code' in err ? (err as { code: string }).code : ''
+      if (code === '23505') {
         // Last-write-wins: force upsert and notify user
         await supabase.from(op.table).upsert(sanitizePayload(op.table, op.payload))
         await removeSyncOperation(op.id)
         onConflict?.('Daten wurden aktualisiert (Konflikt aufgelöst).')
+        continue
       }
-      // Non-conflict errors leave the operation in the queue for retry
+      // Permanent errors (FK violation, RLS denied, check constraint):
+      // retrying won't help – drop the operation and tell the user
+      if (code === '23503' || code === '42501' || code === '23514') {
+        await removeSyncOperation(op.id)
+        onConflict?.('Eine Offline-Änderung konnte nicht übernommen werden.')
+        continue
+      }
+      // Transient errors: retry up to 5 times, then give up
+      const retries = (op.retries ?? 0) + 1
+      const db = await getDB()
+      if (retries >= 5) {
+        await removeSyncOperation(op.id)
+        onConflict?.('Eine Offline-Änderung wurde nach mehreren Versuchen verworfen.')
+      } else {
+        await db.put('sync_queue', { ...op, retries })
+      }
     }
   }
 }
